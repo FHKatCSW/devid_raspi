@@ -1,25 +1,39 @@
 #!/bin/bash
 
-# Install PyQT library
-sudo apt-get install python3-pyqt5 -y
+# Define the path to the virtual environment
+VENV_PATH="/home/admin/devid_nameplate/env"
 
-# Make the PyQT application file executable
-chmod +x /home/pi/pyqt_application.py
+# Activate the virtual environment
+source "$VENV_PATH/bin/activate"
 
-# Create a systemd service for the PyQT application
-sudo cat <<EOT > /etc/systemd/system/pyqt_application.service
-[Unit]
-Description=PyQT Application
+# Install the requirements
+pip install -r requirements.txt
+
+# Freeze the requirements
+pip freeze > requirements.txt
+
+# Deactivate the virtual environment
+deactivate
+
+# Define the path to the Flask app within the virtual environment
+APP_PATH="/home/admin/devid_nameplate/run.py"
+
+# Define the path to the systemd service file
+SERVICE_FILE="/etc/systemd/system/pyqt_application.service"
+
+echo "[Unit]
+Description=IEEE 802.1 AR GUI
 
 [Service]
-User=pi
-ExecStart=/usr/bin/python3 /home/pi/pyqt_application.py
+User=root
+Group=root
+WorkingDirectory=$APP_PATH
+ExecStart=$VENV_PATH/bin/python $APP_PATH --log-file /var/log/pyqt.log
 Restart=always
-RestartSec=10
 
 [Install]
-WantedBy=multi-user.target
-EOT
+WantedBy=multi-user.target" | sudo tee $SERVICE_FILE
+
 
 # Reload systemd and start the PyQT application service
 sudo systemctl daemon-reload
