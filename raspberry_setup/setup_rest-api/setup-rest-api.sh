@@ -24,8 +24,7 @@ echo "[Unit]
 Description=Flask API
 
 [Service]
-User=root
-Group=root
+User=admin
 WorkingDirectory=$APP_PATH
 Environment=\"PATH=$VENV_PATH/bin\"
 ExecStart=$VENV_PATH/bin/gunicorn $APP_MODULE:app -b $IP_ADDRESS:$PORT --log-file /var/log/flask-api.log

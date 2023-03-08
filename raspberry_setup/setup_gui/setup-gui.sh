@@ -25,14 +25,18 @@ APP_PATH="/home/admin/devid_nameplate/run.py"
 # Define the path to the systemd service file
 SERVICE_FILE="/etc/systemd/system/pyqt_application.service"
 
+# Set the working directory for the PyQt application
+APP_WORKDIR="/home/admin/devid_nameplate"
+
 echo "[Unit]
 Description=IEEE 802.1 AR GUI
 
 [Service]
 User=root
 Group=root
-WorkingDirectory=$APP_PATH
-ExecStart=$VENV_PATH/bin/python $APP_PATH --log-file /var/log/pyqt.log
+WorkingDirectory=$APP_WORKDIR
+Environment="PATH=$VENV_PATH/bin"
+ExecStart=$VENV_PATH/bin/python $APP_PATH
 Restart=always
 
 [Install]
@@ -45,3 +49,5 @@ sudo systemctl start pyqt_application.service
 
 # Enable the PyQT application service to start on boot
 sudo systemctl enable pyqt_application.service
+
+# journalctl --unit=pyqt_application.service -n 100 --no-pager
