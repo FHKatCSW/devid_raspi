@@ -22,13 +22,12 @@ echo "[Unit]
 Description=IEEE 802.1 AR GUI
 
 [Service]
-User=admin
 WorkingDirectory=$APP_WORKDIR
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
 
 [Install]
-WantedBy=multi-user.target" | sudo tee $SERVICE_FILE
+WantedBy=graphical.target" | sudo tee $SERVICE_FILE
 
 
 # Reload systemd and start the PyQT application service
