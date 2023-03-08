@@ -28,7 +28,7 @@ header Setup REST API
 sudo ./setup_rest-api/setup-rest-api.sh
 
 header Setup GUI
-sudo ./setup_gui/setup-gui.sh
+sudo bash ./setup_gui/setup-gui.sh
 
 header Setup Display
 sudo ./setup_display/setup-display.sh

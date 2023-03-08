@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/raspberry_setup/setup_basic/setup-basic.sh | bash
+
+
 # update and upgrade the device
 sudo apt-get update && sudo apt-get upgrade -y
 
