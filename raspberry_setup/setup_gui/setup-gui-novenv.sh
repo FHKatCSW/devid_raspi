@@ -24,6 +24,7 @@ After=graphical.target
 
 [Service]
 WorkingDirectory=$APP_WORKDIR
+Environment="QT_DEBUG_PLUGINS=1"
 Environment="DISPLAY=:0.0"
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
