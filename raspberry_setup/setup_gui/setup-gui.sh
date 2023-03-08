@@ -35,7 +35,6 @@ Description=IEEE 802.1 AR GUI
 User=root
 Group=root
 WorkingDirectory=$APP_WORKDIR
-Environment="PATH=$VENV_PATH/bin"
 ExecStart=$VENV_PATH/bin/python $APP_PATH
 Restart=always
 
