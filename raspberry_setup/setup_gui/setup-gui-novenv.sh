@@ -20,9 +20,11 @@ SERVICE_FILE="/etc/systemd/system/pyqt_application.service"
 
 echo "[Unit]
 Description=IEEE 802.1 AR GUI
+After=graphical.target
 
 [Service]
 WorkingDirectory=$APP_WORKDIR
+Environment="DISPLAY=:0.0"
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
 
