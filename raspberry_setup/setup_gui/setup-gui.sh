@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Define the path to the virtual environment
-VENV_PATH="/home/admin/devid_nameplate/env"
+VENV_PATH="/home/admin/devid_nameplate/nameplate_env"
+
+
+# create a new virtual environment
+python -m venv $VENV_PATH
 
 # Activate the virtual environment
 source "$VENV_PATH/bin/activate"
