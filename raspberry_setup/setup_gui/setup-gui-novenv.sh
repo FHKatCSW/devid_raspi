@@ -26,6 +26,7 @@ After=graphical.target
 WorkingDirectory=$APP_WORKDIR
 Environment="QT_DEBUG_PLUGINS=1"
 Environment="DISPLAY=:0.0"
+Environment="XAUTHORITY=~/.Xauthority"
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
 
