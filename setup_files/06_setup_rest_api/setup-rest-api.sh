@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Define the path to the virtual environment
-VENV_PATH="/home/admin/devid_api/env"
+VENV_PATH="/home/$USER/devid_api/env"
 
 # Activate the virtual environment
 source "$VENV_PATH/bin/activate"
 
 # Define the path to the Flask app within the virtual environment
-APP_PATH="/home/admin/devid_api/run.py"
+APP_PATH="/home/$USER/devid_api/run.py"
 
 # Define the name of the Flask app module
 APP_MODULE="app"

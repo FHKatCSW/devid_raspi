@@ -1,5 +1,55 @@
 # devid_raspi
-Setup, GUI and explanation for a ready made Client
+Repo to setup the swissbit iShield, pyhsm, a REST API and a GUI for a Raspberry Pi
+
+## Raspberry
+
+Please be aware that changes in the OS or the packages used can affect the setup. 
+
+We used a Raspberry OS Full (64-bit) with a Desktop environment (Debian GNU/Linux 11 (bullseye))
+
+## How to get started
+
+You can setup the whole raspberry with a oneliner:
+
+⚠️ Beware: This will start bash script ⚠️
+
+```
+curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/raspberry_setup/setup_basic/setup-basic.sh | bash
+```
+
+or load the Repository
+
+```
+git clone https://github.com/FHKatCSW/devid_raspi.git
+```
+
+## Project Structure
+
+```bash
+devid_raspi/
+├── setup_files
+│   └── 01_setup_basic
+│    └── setup-basic.sh
+│   └── 02_setup_ishield
+│    └── setup-ishield.sh
+│   └── 03_setup_pyhsm
+│    └── setup-pyhsm.sh
+│   └── 04_setup_hsm_log_service
+│    └── setup-hsm-logger.sh
+│   └── 05_setup_certificate_storage
+│    └── setup-certificate-storage.sh
+│   └── 06_setup_rest_api
+│    └── setup-rest-api.sh
+│   └── 07_setup_gui
+│    └── setup-gui-novenv.sh
+│   └── 08_setup_display
+│    └── setup-display.sh
+├── README.md
+├── requirements.txt
+└── run.py
+└── setup.py
+```
+<br />
 
 
-https://github.com/FHKatCSW/devid_raspi.git
+
