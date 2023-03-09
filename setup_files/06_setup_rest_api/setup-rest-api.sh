@@ -32,7 +32,7 @@ After=network.target
 [Service]
 User=$SUDO_USER
 Environment="FLASK_APP=run.py"
-WorkingDirectory=$APP_PATH
+WorkingDirectory=$APP_WORKDIR
 ExecStart=$VENV_PATH/bin/flask run --host=$IP_ADDRESS --port=$PORT
 Restart=always
 
