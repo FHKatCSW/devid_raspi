@@ -3,6 +3,9 @@
 # Set the working directory for the PyQt application
 APP_WORKDIR="/home/$SUDO_USER/devid_api"
 
+# Define the path to the virtual environment
+VENV_PATH="/home/$SUDO_USER/devid_api/env"
+
 # Define the path to the systemd service file
 SERVICE_FILE="/etc/systemd/system/devid-api.service"
 
@@ -12,6 +15,11 @@ APP_PATH="/home/$SUDO_USER/devid_api/run.py"
 # Define the IP address and port for the Flask app to run on
 IP_ADDRESS="0.0.0.0"
 PORT="5000"
+
+python -m venv "$VENV_PATH"
+
+# Activate the virtual environment
+source "$VENV_PATH/bin/activate"
 
 # Install the requirements
 pip install -r "$APP_WORKDIR/requirements.txt"
@@ -25,7 +33,7 @@ After=network.target
 User=$SUDO_USER
 Environment="FLASK_APP=run.py"
 WorkingDirectory=$APP_WORKDIR
-ExecStart=flask run --host=$IP_ADDRESS --port=$PORT
+ExecStart=$VENV_PATH/bin/flask run --host=$IP_ADDRESS --port=$PORT
 Restart=always
 
 [Install]
