@@ -11,7 +11,7 @@ We used a Raspberry OS Full (64-bit) with a Desktop environment (Debian GNU/Linu
 
 You can setup the whole raspberry with a oneliner:
 
-⚠️ Beware: This will start bash script ⚠️
+⚠️ Beware: This will start a bash script ⚠️
 
 ```
 curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/raspberry_setup/setup_basic/setup-basic.sh | bash
@@ -21,6 +21,12 @@ or load the Repository
 
 ```
 git clone https://github.com/FHKatCSW/devid_raspi.git
+```
+
+and execute the setup 
+
+```
+sudo bash ./devid_raspi/setup_raspberry.sh
 ```
 
 ## Project Structure
@@ -45,9 +51,7 @@ devid_raspi/
 │   └── 08_setup_display
 │    └── setup-display.sh
 ├── README.md
-├── requirements.txt
-└── run.py
-└── setup.py
+├── setup_raspberry.sh
 ```
 <br />
 

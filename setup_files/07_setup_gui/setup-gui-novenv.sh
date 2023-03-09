@@ -2,7 +2,7 @@
 
 
 # Set the working directory for the PyQt application
-APP_WORKDIR="/home/$USER/devid_nameplate"
+APP_WORKDIR="/home/$SUDO_USER/devid_nameplate"
 
 # Install python3-pyqt5
 sudo apt-get install python3-pyqt5
@@ -12,7 +12,7 @@ pip install -r "$APP_WORKDIR/requirements.txt"
 # pip install -r "/home/admin/devid_nameplate/requirements.txt"
 
 # Define the path to the Flask app within the virtual environment
-APP_PATH="/home/$USER/devid_nameplate/run.py"
+APP_PATH="/home/$SUDO_USER/devid_nameplate/run.py"
 
 # Define the path to the systemd service file
 SERVICE_FILE="/etc/systemd/system/pyqt_application.service"
@@ -25,7 +25,7 @@ After=graphical.target
 WorkingDirectory=$APP_WORKDIR
 Environment="QT_DEBUG_PLUGINS=1"
 Environment="DISPLAY=:0.0"
-Environment="XAUTHORITY=/home/"$USER"/.Xauthority"
+Environment="XAUTHORITY=/home/"$SUDO_USER"/.Xauthority"
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
 
