@@ -15,7 +15,7 @@ pip install -r "$APP_WORKDIR/requirements.txt"
 APP_PATH="/home/$SUDO_USER/devid_nameplate/run.py"
 
 # Define the path to the systemd service file
-SERVICE_FILE="/etc/systemd/system/pyqt_application.service"
+SERVICE_FILE="/etc/systemd/system/devid-gui.service"
 
 echo "[Unit]
 Description=IEEE 802.1 AR GUI
@@ -35,10 +35,10 @@ WantedBy=graphical.target" | sudo tee $SERVICE_FILE
 
 # Reload systemd and start the PyQT application service
 sudo systemctl daemon-reload
-sudo systemctl start pyqt_application.service
+sudo systemctl start devid-gui.service
 
 # Enable the PyQT application service to start on boot
-sudo systemctl enable pyqt_application.service
+sudo systemctl enable devid-gui.service
 
 
 # -------------------------
@@ -46,8 +46,8 @@ sudo systemctl enable pyqt_application.service
 # -------------------------
 
 # Show the last 100 logs
-# journalctl --unit=pyqt_application.service -n 100 --no-pager
+# journalctl --unit=devid-gui.service -n 100 --no-pager
 
 # Restart the service
-# sudo systemctl restart pyqt_application.service
+# sudo systemctl restart devid-gui.service
 
