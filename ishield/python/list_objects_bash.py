@@ -70,11 +70,22 @@ class HsmObjects:
     def to_json(self):
         return json.dumps(self.to_dict(), indent=4)
 
+    def filter_id_by_label(self, key_name):
+        keys = self.to_json()
+        ids = []
+        for key_type in ["private_keys", "public_keys"]:
+            if key_name in keys[key_type]:
+                ids.append(keys[key_type][key_name]["ID"])
+        return ids
+
 if __name__ == "__main__":
+    print("--- Print Objects ---")
     hsm_objects = HsmObjects(
         library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234'
     )
     print(hsm_objects.to_json())
-    print(hsm_objects.to_dict())
+    #print(hsm_objects.to_dict())
+    print("--- Get key ID ---")
+    print("ID: {}".format(hsm_objects.filter_id_by_label(key_name="my_rsa_pvt_5170")))
