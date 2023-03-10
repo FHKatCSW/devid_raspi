@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #Clone the repository
-git clone https://github.com/bentonstark/libhsm.git
+git clone https://github.com/bentonstark/libhsm.git /home/$SUDO_USER/libhsm/
 
 # Build libhsm
-cd /libhsm/build
+cd /home/$SUDO_USER/libhsm/build
 ./build_libhsm
 sudo cp "/home/$SUDO_USER/libhsm/build/libhsm.so" /usr/lib/libhsm.so
 
