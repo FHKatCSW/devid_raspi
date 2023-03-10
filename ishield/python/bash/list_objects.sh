@@ -14,10 +14,4 @@ PIN="$3"
 # Run the HSM command and capture the output
 OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects)
 
-
 echo "$OUTPUT"
-
-# Remove newline characters and replace colons with keys to create JSON object
-json=$(echo "$OUTPUT" | tr '\n' ' ' | sed -e 's/ *: */"/g' -e 's/ *\([^ ]* \)/"\1": /g' -e 's/ *$//g')
-
-echo "$json"
