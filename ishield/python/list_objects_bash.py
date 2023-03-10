@@ -28,6 +28,8 @@ class HsmObjects:
         current_obj_usage = None
         current_obj_access = None
 
+        print(type(input_str))
+
         for line in input_str.split('\n'):
             match = re.match(r'^\s*(Private|Public) Key Object;\s*(RSA.*)$', line)
             if match:
