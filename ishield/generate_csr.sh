@@ -12,6 +12,10 @@ ORGANIZATION="Example Inc."
 ORG_UNIT="IT Department"
 COMMON_NAME="example.com"
 
+Ids=$($PKCS11_TOOL --module $PKCS11_MODULE --list-objects --login --pin 1234)
+
+echo "$Ids"
+
 # Get the ID of the existing private key on the PKCS11 device
 KEY_ID=$($PKCS11_TOOL --module $PKCS11_MODULE --list-objects --login --pin 1234 | grep 'my_rsa_pvt_5170' | awk '{print $1}')
 
