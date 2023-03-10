@@ -5,6 +5,7 @@ def list_objects_on_hsm(library_path, slot_num, pin):
     # Run the bash script and capture the output
     result = subprocess.check_output(["./bash/list_objects.sh", library_path, str(slot_num), pin])
 
+    print(result)
     # Decode the JSON-encoded object list
     object_list = json.loads(result)
 
