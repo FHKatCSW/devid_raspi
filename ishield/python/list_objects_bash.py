@@ -15,8 +15,8 @@ class HsmObjects:
     def list_objects_on_hsm(self):
         # Run the bash script and capture the output
         result = subprocess.check_output(["./bash/list_objects.sh", self.library_path, str(self.slot_num), self.pin])
-
-        return result
+        result_byte = str.encode(result)
+        return result_byte
 
     def parse_input_str(self, input_str):
         pattern = r'^\s*([^:]+):\s*(.*?)\s*$'
