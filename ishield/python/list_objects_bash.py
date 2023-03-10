@@ -73,7 +73,6 @@ class HsmObjects:
     def filter_id_by_label(self, key_name):
         keys = self.to_json()
         keys_str = json.loads(keys)
-        ids = []
         for key_type in ["private_keys", "public_keys"]:
             if key_name in keys_str[key_type]:
                 return keys_str[key_type][key_name]["ID"]
