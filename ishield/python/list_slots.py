@@ -6,7 +6,7 @@ def list_available_slots(library_path):
     result = []
     with HsmClient(pkcs11_lib=library_path) as c:
         for s in c.get_slot_info():
-            print(s.slotNumber)
+            # print(s.slotNumber)
             # slot_info = {
             #     "slot_description": s.slot_description,
             #     "manufacturer_id": s.manufacturer_id,
@@ -19,7 +19,7 @@ def list_available_slots(library_path):
             #     "is_user_authenticated": s.is_user_authenticated,
             #     "is_secure_boot_supported": s.is_secure_boot_supported
             # }
-            # result.append(int(s))
+            result.append(s.slotNumber)
     return json.dumps(result)
 
 if __name__ == "__main__":
