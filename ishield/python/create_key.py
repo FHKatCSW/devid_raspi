@@ -45,5 +45,4 @@ if __name__ == "__main__":
                      public_key_label="my_rsa_pub_{}".format(random_id),
                      private_key_label="my_rsa_pvt_{}".format(random_id))
     key_handles = hsm_key.generate_rsa_key_pair()
-    print("public_handle: " + str(key_handles[0]))
-    print("private_handle: " + str(key_handles[1]))
+

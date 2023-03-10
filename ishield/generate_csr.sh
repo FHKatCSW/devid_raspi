@@ -13,7 +13,8 @@ ORG_UNIT="IT Department"
 COMMON_NAME="example.com"
 
 # Get the ID of the existing private key on the PKCS11 device
-KEY_ID=$($PKCS11_TOOL --module $PKCS11_MODULE --list-objects --login --pin 1234 | grep 'Private Key' | awk '{print $1}')
+KEY_ID=$($PKCS11_TOOL --module $PKCS11_MODULE --list-objects --login --pin 1234 | grep 'my_rsa_pvt_5170' | awk '{print $1}')
 
+echo "$KEY_ID"
 # Generate a CSR using the existing private key on the PKCS11 device
-$PKCS11_TOOL --module $PKCS11_MODULE --certreq --id $KEY_ID --type rsa --subject "C=$COUNTRY,ST=$STATE,L=$CITY,O=$ORGANIZATION,OU=$ORG_UNIT,CN=$COMMON_NAME" --output-file example.csr --login --pin 1234
+# $PKCS11_TOOL --module $PKCS11_MODULE --certreq --id $KEY_ID --type rsa --subject "C=$COUNTRY,ST=$STATE,L=$CITY,O=$ORGANIZATION,OU=$ORG_UNIT,CN=$COMMON_NAME" --output-file example.csr --login --pin 1234
