@@ -14,7 +14,7 @@ sudo make -j4 install
 systemctl status pcscd
 
 # Detect the location of the openssl configuration file
-OPENSSL_CONF=$(openssl version -d | awk '{print $NF}')/openssl.cnf
+OPENSSL_CONF=$(openssl version -d | awk '{print $NF}' | tr -d '"')/openssl.cnf
 
 # Add content to the beginning of the openssl configuration file
 sed -e '1i\

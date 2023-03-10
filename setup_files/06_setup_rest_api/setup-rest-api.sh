@@ -50,6 +50,3 @@ sudo systemctl enable devid-api
 # Restart the service
 # sudo systemctl restart devid-api.service
 
-
-
-pip install --upgrade pyopenssl
