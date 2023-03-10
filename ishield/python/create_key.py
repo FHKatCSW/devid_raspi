@@ -39,7 +39,7 @@ class HsmKey:
 
 if __name__ == "__main__":
     random_id = random.randint(1000, 9999)
-    hsm_key = HsmKey(slot=1,
+    hsm_key = HsmKey(slot=0,
                      pin="1234",
                      library_path='/usr/lib/opensc-pkcs11.so',
                      public_key_label="my_rsa_pub_{}".format(random_id),
