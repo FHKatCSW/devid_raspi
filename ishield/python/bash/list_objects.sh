@@ -15,7 +15,7 @@ PIN="$3"
 OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects | jq 'del(.[] | nulls)')
 
 
-echo OUTPUT
+echo "$OUTPUT"
 
 # Extract the object list from the output and convert it to JSON
 OBJECT_LIST=$(echo "$OUTPUT" | awk '/Object {/{flag=1; next} /CKA_LABEL/{flag=0} flag')
