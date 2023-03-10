@@ -23,4 +23,5 @@ def list_available_slots(library_path):
     return json.dumps(result)
 
 if __name__ == "__main__":
-    list_available_slots(library_path='/usr/lib/opensc-pkcs11.so')
+    slots = list_available_slots(library_path='/usr/lib/opensc-pkcs11.so')
+    print(slots)
