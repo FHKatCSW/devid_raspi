@@ -17,9 +17,7 @@ OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "
 
 echo "$OUTPUT"
 
-# Extract the object list from the output and convert it to JSON
-OBJECT_LIST=$(echo "$OUTPUT" | awk '/Object {/{flag=1; next} /CKA_LABEL/{flag=0} flag')
-JSON=$(echo "$OBJECT_LIST" | awk '{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); gsub(/\\x/,"\\\\x"); print}' | jq -R 'split("\n")[:-1] | map(split(": ")) | [.[0], (.[1:] | join(": "))] | from_entries')
+# Remove newline characters and replace colons with keys to create JSON object
+json=$(echo "OUTPUT" | tr '\n' ' ' | sed -e 's/ *: */"/g' -e 's/ *\([^ ]* \)/"\1": /g' -e 's/ *$//g')
 
-# Output the JSON-encoded object list
-echo "$JSON"
+echo "$json"
