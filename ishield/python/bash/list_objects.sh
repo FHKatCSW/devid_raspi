@@ -12,7 +12,7 @@ SLOT_NUM="$2"
 PIN="$3"
 
 # Run the HSM command and capture the output
-OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects | jq 'del(.[] | nulls)')
+OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects)
 
 
 echo "$OUTPUT"
