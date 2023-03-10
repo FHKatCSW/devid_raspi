@@ -20,6 +20,6 @@ def list_objects_on_hsm(slot_num, pin, library_path):
 if __name__ == "__main__":
     list_objects_on_hsm(
         library_path='/usr/lib/opensc-pkcs11.so',
-        slot_num='0',
+        slot_num=0,
         pin='1234'
     )
