@@ -19,7 +19,7 @@ def list_available_slots(library_path):
             #     "is_user_authenticated": s.is_user_authenticated,
             #     "is_secure_boot_supported": s.is_secure_boot_supported
             # }
-            # result.append(slot_info)
+            result.append(s)
     return json.dumps(result)
 
 if __name__ == "__main__":
