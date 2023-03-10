@@ -76,8 +76,7 @@ class HsmObjects:
         ids = []
         for key_type in ["private_keys", "public_keys"]:
             if key_name in keys_str[key_type]:
-                ids.append(keys_str[key_type][key_name]["ID"])
-        return ids
+                return keys_str[key_type][key_name]["ID"]
 
 if __name__ == "__main__":
     print("--- Print Objects ---")
