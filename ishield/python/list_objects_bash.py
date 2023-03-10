@@ -9,7 +9,7 @@ def list_objects_on_hsm(library_path, slot_num, pin):
     object_list = json.loads(result)
 
     # Return the object list as a Python list of dictionaries
-    return object_list
+    print(object_list)
 
 if __name__ == "__main__":
     list_objects_on_hsm(
