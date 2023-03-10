@@ -14,6 +14,9 @@ PIN="$3"
 # Run the HSM command and capture the output
 OUTPUT=$(pkcs11-tool --module "$LIBRARY_PATH" --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects | jq 'del(.[] | nulls)')
 
+
+echo OUTPUT
+
 # Extract the object list from the output and convert it to JSON
 OBJECT_LIST=$(echo "$OUTPUT" | awk '/Object {/{flag=1; next} /CKA_LABEL/{flag=0} flag')
 JSON=$(echo "$OBJECT_LIST" | awk '{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); gsub(/\\x/,"\\\\x"); print}' | jq -R 'split("\n")[:-1] | map(split(": ")) | [.[0], (.[1:] | join(": "))] | from_entries')
