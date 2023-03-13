@@ -20,12 +20,10 @@ class GenerateCsr:
         )
         self.key_id = hsm_objects.filter_id_by_label(key_name=self.key_label)
 
-    def generate_csr(self , cn, o=None, ou=None, c=None, serial_number=None, dns_names=None, ip_addresses=None):
+    def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None, dns_names=None, ip_addresses=None):
         # Build command to call the bash script with named arguments
         command = [
             "./bash/generate_csr.sh",
-            '--engine',
-            'pkcs11',
             '--output',
             self.output_file,
             '--cn',

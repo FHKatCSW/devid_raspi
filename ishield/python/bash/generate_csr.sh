@@ -3,7 +3,6 @@
 # Parse named arguments
 while [ $# -gt 0 ]; do
     case "$1" in
-        --engine=*) engine="${1#*=}"; shift 1;;
         --key-id=*) key_id="${1#*=}"; shift 1;;
         --output-file=*) output_file="${1#*=}"; shift 1;;
         --cn=*) cn="${1#*=}"; shift 1;;
@@ -24,4 +23,4 @@ if [ ! -z "$c" ]; then subj="$subj/C=$c"; fi
 if [ ! -z "$serial_number" ]; then subj="$subj/serialNumber=$serial_number"; fi
 
 # Generate CSR using openssl command
-openssl req -engine $engine -keyform engine -subj "$subj" -key $key_id -new -sha256 -out $output_file
+openssl req -engine pkcs11 -keyform engine -subj "$subj" -key $key_id -new -sha256 -out $output_file
