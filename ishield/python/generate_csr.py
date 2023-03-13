@@ -24,25 +24,23 @@ class GenerateCsr:
         # Build command to call the bash script with named arguments
         command = [
             "./bash/generate_csr.sh",
-            '--output-file',
-            self.output_file,
-            '--cn',
-            cn,
+            f'--output-file={self.output_file}',
+            f'--cn={cn}',
         ]
 
         if self.key_label:
             self.get_key_id_by_label()
 
-        command += ['--key', self.key_id]
+        command += [f'--key-id={self.key_id}']
 
         if o:
-            command += ['--o', o]
+            command += [f'--o={o}']
         if ou:
-            command += ['--ou', ou]
+            command += [f'--ou={ou}']
         if c:
-            command += ['--c', c]
+            command += [f'--c={c}']
         if serial_number:
-            command += ['--serial', serial_number]
+            command += [f'--serial={serial_number}']
 
         # Add subject alternative names to the CSR
         # if dns_names or ip_addresses:
@@ -71,4 +69,4 @@ if __name__ == "__main__":
         key_label='my_rsa_pvt_5170',
         output_file='csr_{}'.format(random_id)
     )
-    csr_generate.generate_csr(cn="test_csr_{}".format(random_cn))
+    csr_generate.generate_csr(cn="test_csr_{}.csr".format(random_cn))
