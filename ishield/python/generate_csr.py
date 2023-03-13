@@ -1,15 +1,16 @@
 import subprocess
-
+import random
 from ishield.python.list_objects_bash import HsmObjects
 
 
-class OpenSSLRunner:
-    def __init__(self, slot_num, pin, key_id=None, key_label=None, library_path='/usr/lib/opensc-pkcs11.so'):
+class GenerateCsr:
+    def __init__(self, slot_num, pin, output_file, key_id=None, key_label=None, library_path='/usr/lib/opensc-pkcs11.so'):
         self.key_id = key_id
         self.key_label = key_label
         self.slot_num = slot_num
         self.pin = pin
         self.library_path = library_path
+        self.output_file = output_file
 
     def get_key_id_by_label(self):
         hsm_objects = HsmObjects(
@@ -19,14 +20,14 @@ class OpenSSLRunner:
         )
         self.key_id = hsm_objects.filter_id_by_label(key_name=self.key_label)
 
-    def generate_csr(self, output_file , cn, o=None, ou=None, c=None, serial_number=None, dns_names=None, ip_addresses=None):
+    def generate_csr(self , cn, o=None, ou=None, c=None, serial_number=None, dns_names=None, ip_addresses=None):
         # Build command to call the bash script with named arguments
         command = [
             "./bash/generate_csr.sh",
             '--engine',
             'pkcs11',
             '--output',
-            output_file,
+            self.output_file,
             '--cn',
             cn,
         ]
@@ -59,3 +60,16 @@ class OpenSSLRunner:
 
         # Call the bash script with the command
         subprocess.call(command)
+
+if __name__ == "__main__":
+    random_id = random.randint(1000, 9999)
+    random_cn = random.randint(1000000, 9999999)
+    print("--- Generate CSR ---")
+    csr_generate = GenerateCsr(
+        library_path='/usr/lib/opensc-pkcs11.so',
+        slot_num=0,
+        pin='1234',
+        key_label='my_rsa_pvt_5170',
+        output_file='csr_{}'.format(random_id)
+    )
+    csr_generate.generate_csr(cn="test_csr_{}".format(random_cn))
