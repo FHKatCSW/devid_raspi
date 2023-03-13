@@ -24,7 +24,7 @@ class GenerateCsr:
         # Build command to call the bash script with named arguments
         command = [
             "./bash/generate_csr.sh",
-            '--output',
+            '--output-file',
             self.output_file,
             '--cn',
             cn,
