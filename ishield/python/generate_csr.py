@@ -1,6 +1,6 @@
 import subprocess
 import random
-from .list_objects_bash import HsmObjects
+import list_objects_bash
 
 
 class GenerateCsr:
@@ -13,7 +13,7 @@ class GenerateCsr:
         self.output_file = output_file
 
     def get_key_id_by_label(self):
-        hsm_objects = HsmObjects(
+        hsm_objects = list_objects_bash.HsmObjects(
             library_path=self.library_path,
             slot_num=self.slot_num,
             pin=self.pin
