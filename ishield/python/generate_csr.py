@@ -1,6 +1,6 @@
 import subprocess
 import random
-from ishield.python.list_objects_bash import HsmObjects
+from .list_objects_bash import HsmObjects
 
 
 class GenerateCsr:
