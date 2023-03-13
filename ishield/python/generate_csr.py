@@ -56,6 +56,7 @@ class GenerateCsr:
         #         f.write('\n'.join(san_config))
         #     command += ['-reqexts', 'SAN', '-config', san_config_file]
 
+        print(command)
         # Call the bash script with the command
         subprocess.call(command)
 
