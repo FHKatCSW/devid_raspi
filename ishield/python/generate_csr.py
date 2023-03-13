@@ -66,7 +66,7 @@ if __name__ == "__main__":
         library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234',
-        key_label='my_rsa_pvt_5170',
+        key_id='my_rsa_pvt_5170',
         output_file='csr_{}'.format(random_id)
     )
     csr_generate.generate_csr(cn="test_csr_{}.csr".format(random_cn))
