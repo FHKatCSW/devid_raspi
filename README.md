@@ -55,10 +55,5 @@ devid_raspi/
 ```
 <br />
 
-## Open questions:
-### iShield:
-- Is there a possibility to erase / reset the device?
-- Can single keys / certs be deleted?
-- Can there be more than 1 slot?
 
 
