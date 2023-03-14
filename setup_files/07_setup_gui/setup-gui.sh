@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function service_instruction {
+  echo "Service name: $1"
+  echo "👍 Status: systemctl status $1.service"
+  echo "📄 Logs: journalctl --unit=$1.service -n 100 --no-pager"
+  echo "↩️ Restart: sudo systemctl restart $1.service"
+}
 
 # Set the working directory for the PyQt application
 APP_WORKDIR="/home/$SUDO_USER/devid_nameplate"
@@ -14,8 +20,11 @@ pip install -r "$APP_WORKDIR/requirements.txt"
 # Define the path to the Flask app within the virtual environment
 APP_PATH="/home/$SUDO_USER/devid_nameplate/run.py"
 
+# Define service name
+SERVICE_NAME="devid-gui"
+
 # Define the path to the systemd service file
-SERVICE_FILE="/etc/systemd/system/devid-gui.service"
+SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 
 echo "[Unit]
 Description=IEEE 802.1 AR GUI
@@ -39,6 +48,10 @@ sudo systemctl start devid-gui.service
 
 # Enable the PyQT application service to start on boot
 sudo systemctl enable devid-gui.service
+
+service_instruction $SERVICE_NAME
+
+echo "✅ GUI setup finished"
 
 
 # -------------------------

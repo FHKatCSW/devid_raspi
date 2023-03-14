@@ -1,10 +1,20 @@
 #!/bin/bash
 
+function service_instruction {
+  echo "Service name: $1"
+  echo "👍 Status: systemctl status $1.service"
+  echo "📄 Logs: journalctl --unit=$1.service -n 100 --no-pager"
+  echo "↩️ Restart: sudo systemctl restart $1.service"
+}
+
 # Set the working directory for the PyQt application
 APP_WORKDIR="/home/$SUDO_USER/devid_api"
 
+# Define service name
+SERVICE_NAME="devid-api"
+
 # Define the path to the systemd service file
-SERVICE_FILE="/etc/systemd/system/devid-api.service"
+SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 
 # Define the path to the Flask app within the virtual environment
 APP_PATH="/home/$SUDO_USER/devid_api/run.py"
@@ -39,6 +49,11 @@ sudo systemctl start devid-api
 
 # Enable the devid API service to start automatically on boot
 sudo systemctl enable devid-api
+
+service_instruction $SERVICE_NAME
+
+echo "✅ REST API setup finished"
+
 
 # -------------------------
 # Additional commands

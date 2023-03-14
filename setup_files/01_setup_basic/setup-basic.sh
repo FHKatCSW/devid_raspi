@@ -16,3 +16,5 @@ sudo python3 -m pip install --upgrade pip
 git clone https://github.com/FHKatCSW/devid_api.git
 git clone https://github.com/FHKatCSW/devid_raspi.git
 git clone https://github.com/FHKatCSW/devid_nameplate.git
+
+echo "✅ basic setup finished"

@@ -36,3 +36,5 @@ engine_id = pkcs11
 MODULE_PATH = /usr/lib/opensc-pkcs11.so
 init = 0
 ' OPENSSL_CONF
+
+echo "✅ iShield setup finished"

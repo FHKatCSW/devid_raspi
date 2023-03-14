@@ -14,7 +14,7 @@ You can setup the whole raspberry with a oneliner:
 ⚠️ Beware: This will start a bash script ⚠️
 
 ```
-curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/raspberry_setup/setup_basic/setup-basic.sh | bash
+curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/setup_raspberry.sh | bash
 ```
 
 or load the Repository
@@ -55,5 +55,10 @@ devid_raspi/
 ```
 <br />
 
+## Open questions:
+### iShield:
+- Is there a possibility to erase / reset the device?
+- Can single keys / certs be deleted?
+- Can there be more than 1 slot?
 
 

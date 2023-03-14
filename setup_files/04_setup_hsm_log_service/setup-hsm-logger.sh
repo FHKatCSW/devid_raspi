@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function service_instruction {
+  echo "Service name: $1"
+  echo "👍 Status: systemctl status $1.service"
+  echo "📄 Logs: journalctl --unit=$1.service -n 100 --no-pager"
+  echo "↩️ Restart: sudo systemctl restart $1.service"
+}
+
+# Define service name
+SERVICE_NAME="hsm-logger"
+
 # Create systemd service file
 cat <<EOF | sudo tee /etc/systemd/system/hsm-logger.service
 [Unit]
@@ -39,4 +49,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable hsm-logger.service
 sudo systemctl start hsm-logger.service
 
-echo "HSM communication logger service has been set up."
+service_instruction $SERVICE_NAME
+
+echo "✅ HSM logger setup finished"

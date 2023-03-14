@@ -3,7 +3,7 @@ import random
 
 
 class HsmKey:
-    def __init__(self, slot, pin, library_path, public_key_label, private_key_label, key_length=2048,
+    def __init__(self, slot, pin, public_key_label, private_key_label, key_length=2048, library_path = '/usr/lib/opensc-pkcs11.so',
                  public_exponent=b"\x01\x00\x01", token=True, modifiable=False, extractable=False, sign_verify=True,
                  encrypt_decrypt=True, wrap_unwrap=True, derive=False):
         self.slot = slot
@@ -41,7 +41,6 @@ if __name__ == "__main__":
     random_id = random.randint(1000, 9999)
     hsm_key = HsmKey(slot=0,
                      pin="1234",
-                     library_path='/usr/lib/opensc-pkcs11.so',
                      public_key_label="my_rsa_pub_{}".format(random_id),
                      private_key_label="my_rsa_pvt_{}".format(random_id))
     key_handles = hsm_key.generate_rsa_key_pair()

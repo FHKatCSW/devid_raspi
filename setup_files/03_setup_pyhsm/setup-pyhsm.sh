@@ -8,4 +8,4 @@ cd /home/$SUDO_USER/libhsm/build
 ./build_libhsm
 sudo cp "/home/$SUDO_USER/libhsm/build/libhsm.so" /usr/lib/libhsm.so
 
-echo "py-hsm has been set up."
+echo "✅ py-hsm setup finished"
