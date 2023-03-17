@@ -12,16 +12,18 @@ function warn {
     echo
 }
 
+echo "SUDO_USER: $SUDO_USER"
+
 if ! command -v git &> /dev/null; then
+    echo "Install git"
     sudo apt-get update && sudo apt-get upgrade -y
     sudo apt-get install git
 fi
 
 if [[ ! -d "/home/$SUDO_USER/devid_raspi" ]]; then
+    echo "Clone devid_raspi repository"
     git clone https://github.com/FHKatCSW/devid_raspi.git
 fi
-
-echo "SUDO_USER: $SUDO_USER"
 
 header Basic setup
 sudo bash /home/"$SUDO_USER"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
