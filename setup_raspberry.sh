@@ -12,6 +12,15 @@ function warn {
     echo
 }
 
+if ! command -v git &> /dev/null; then
+    sudo apt-get update && sudo apt-get upgrade -y
+    sudo apt-get install git
+fi
+
+if [[ ! -d "/home/$SUDO_USER/devid_raspi" ]]; then
+    git clone https://github.com/FHKatCSW/devid_raspi.git
+fi
+
 header Basic setup
 sudo bash /home/"$SUDO_USER"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
 
