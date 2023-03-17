@@ -21,6 +21,8 @@ if [[ ! -d "/home/$SUDO_USER/devid_raspi" ]]; then
     git clone https://github.com/FHKatCSW/devid_raspi.git
 fi
 
+echo "SUDO_USER: $SUDO_USER"
+
 header Basic setup
 sudo bash /home/"$SUDO_USER"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
 
