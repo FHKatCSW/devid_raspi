@@ -12,7 +12,7 @@ CSR_FILE=$4
 curl_response=$(curl -k -X POST \
 --header "Content-Type: application/json" \
 --header "Accept: application/json" \
---cert $(cat $P12_TOKEN | base64 | tr -d '\n'):$P12_PASS \
+--cert $P12_TOKEN:$P12_PASS \
 --data '{"certificateRequest":"'$(cat $CSR_FILE | tr -d '\n' | sed 's/-----END.*CERTIFICATE-----/-----END CERTIFICATE-----/g' | sed 's/-----BEGIN.*CERTIFICATE-----/-----BEGIN CERTIFICATE-----/g')'"}' \
 "$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/generateCertificate")
 
