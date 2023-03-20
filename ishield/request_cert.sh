@@ -30,19 +30,23 @@ echo $client_cert
 echo
 echo $json_payload
 
-curl_response=$(curl -X POST -s \
+#curl_response=$(curl -X POST -s \
+#    --cert-type P12 \
+#    --cert "$client_cert" \
+#    -H 'Content-Type: application/json' \
+#    -H  "accept: application/json" \
+#    --data "$json_payload" \
+#    "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll")
+
+
+curl_response=$(curl -k \
     --cert-type P12 \
     --cert $client_cert \
-    -H 'Content-Type: application/json' \
-    --data "$json_payload" \
-    "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll")
+    -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
+    -H  "accept: application/json" \
+    -H  "Content-Type: application/json" \
+    -d $json_payload)
 
-echo $curl_response
-
-#curl -k \
-#    --cert-type P12 \
-#    --cert $client_cert \
-#    -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
-#    -H  "accept: application/json" \
-#    -H  "Content-Type: application/json" \
-#    -d $json_payload
+echo
+echo "Response:"
+echo "$curl_response"
