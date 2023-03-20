@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-# bash request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "foo123" "/home/admin/raspi_auth_v1.p12" "/home/admin/setup_test_3.csr"
+# bash request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "/home/admin/raspi_auth_v1.p12" "foo123" "/home/admin/setup_test_3.csr"
 
 EJBCA_BASE_URL=$1
 P12_TOKEN=$2
@@ -28,7 +28,7 @@ json_payload=$(jq -n \
 client_cert="$P12_TOKEN:$P12_PASS"
 echo $client_cert
 echo
-echo json_payload
+echo $json_payload
 
 #curl -X POST -s \
 #    --cert-type P12 \
