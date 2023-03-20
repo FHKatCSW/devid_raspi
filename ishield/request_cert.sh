@@ -47,7 +47,7 @@ curl_response=$(curl -k \
     -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
     -H  "accept: application/json" \
     -H  "Content-Type: application/json" \
-    -d $escaped_payload)
+    -d "$escaped_payload")
 
 echo
 echo "Response:"
