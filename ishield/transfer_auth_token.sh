@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-# bash transfer_auth_token.sh "hmipidev15.local" "admin" ".token/raspi_auth_v1.p12"
+# bash transfer_auth_token.sh "hmipidev15.local" "admin" "./token/fhk_hmi_setup_v3.p12"
 
 HOSTNAME=$1
 USERNAME=$2

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-# bash /home/admin/devid_raspi/ishield/request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "/home/admin/raspi_auth_v1.p12" "foo123" "/home/admin/test_csr_setup_1.csr"
+# bash /home/admin/devid_raspi/ishield/request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "/home/admin/fhk_hmi_setup_v3.p12" "foo123" "/home/admin/test_csr_setup_1.csr"
 
 EJBCA_BASE_URL=$1
 P12_TOKEN=$2
@@ -11,7 +11,7 @@ CSR_FILE=$4
 cert_profile_name="DeviceIdentity-Raspberry"
 ee_profile_name="KF-CS-EE-DeviceIdentity-Raspberry"
 ca_name="KF-CS-HMI-2023-CA"
-username="setup_test"
+username="fhk_hmi_setup_v3"
 enrollment_code="foo123"
 
 csr=$(cat $CSR_FILE)
