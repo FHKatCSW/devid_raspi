@@ -30,12 +30,14 @@ echo $client_cert
 echo
 echo $json_payload
 
-curl -X POST -s \
+curl_response=$(curl -X POST -s \
     --cert-type P12 \
     --cert $client_cert \
     -H 'Content-Type: application/json' \
     --data "$json_payload" \
-    "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll"
+    "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll")
+
+echo $curl_response
 
 #curl -k \
 #    --cert-type P12 \
