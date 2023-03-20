@@ -42,11 +42,11 @@ header Setup Certificate Storage
 bash /home/"$username"/devid_raspi/setup_files/05_setup_certificate_storage/setup-certificate-storgae.sh
 
 header Setup REST API
-bash /home/"$username"/devid_raspi/setup_files/06_setup_rest_api/setup-rest-api.sh
+bash /home/"$username"/devid_raspi/setup_files/06_setup_rest_api/setup-rest-api.sh $username
 
 header Setup GUI
 bash /home/"$username"/devid_raspi/setup_files/07_setup_gui/setup-gui.sh $username
 
 warn This is the last step: Raspberry will reboot afterwards
 header Setup Display
-bash /home/"$username"/devid_raspi/setup_files/08_setup_display/setup-display.sh $username
+bash /home/"$username"/devid_raspi/setup_files/08_setup_display/setup-display.sh
