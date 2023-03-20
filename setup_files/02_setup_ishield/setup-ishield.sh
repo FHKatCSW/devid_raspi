@@ -17,24 +17,7 @@ systemctl status pcscd
 OPENSSL_CONF=$(openssl version -d | awk '{print $NF}' | tr -d '"')/openssl.cnf
 
 # Add content to the beginning of the openssl configuration file
-sed -e '1i\
-# CUSTOM Confirguration for iShield
-openssl_conf = openssl_init
-' <OPENSSL_CONF
-
-# Add content to the end of the openssl configuration file
-sed -i -e '$a
-# CUSTOM Confirguration for iShield
-[openssl_init]
-engines = engine_section
-
-[engine_section]
-pkcs11 = pkcs11_section
-
-[pkcs11_section]
-engine_id = pkcs11
-MODULE_PATH = /usr/lib/opensc-pkcs11.so
-init = 0
-' OPENSSL_CONF
+sudo sed -i '1i\
+openssl_conf = openssl_init\n\n[openssl_init]\nengines = engine_section\n\n[engine_section]\npkcs11 = pkcs11_section\n\n[pkcs11_section]\nengine_id = pkcs11\nMODULE_PATH = /usr/lib/opensc-pkcs11.so\ndynamic_path = /usr/lib/aarch64-linux-gnu/engines-1.1/pkcs11.so\ninit = 0\n' $OPENSSL_CONF
 
 echo "✅ iShield setup finished"
