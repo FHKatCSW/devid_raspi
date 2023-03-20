@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# bash /home/admin/devid_raspi/ishield/python/bash/generate_csr.sh --key-id="3" --output-file="test_csr_setup_1" --cn="test_csr_setup_1"
+# bash /home/admin/devid_raspi/ishield/python/bash/generate_csr.sh --key-id="3" --output-file="/home/admin/test_csr_setup_1.csr" --cn="test_csr_setup_1"
 
 # Parse named arguments
 while [ $# -gt 0 ]; do

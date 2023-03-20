@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-# bash request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "/home/admin/raspi_auth_v1.p12" "foo123" "/home/admin/setup_test_3.csr"
+# bash /home/admin/devid_raspi/ishield/request_cert.sh "campuspki.germanywestcentral.cloudapp.azure.com" "/home/admin/raspi_auth_v1.p12" "foo123" "/home/admin/test_csr_setup_1.csr"
 
 EJBCA_BASE_URL=$1
 P12_TOKEN=$2
@@ -25,6 +25,8 @@ json_payload=$(jq -n \
     --arg pwd "$enrollment_code" \
     "$template")
 
+escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
+
 client_cert="$P12_TOKEN:$P12_PASS"
 echo $client_cert
 echo
@@ -45,7 +47,7 @@ curl_response=$(curl -k \
     -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
     -H  "accept: application/json" \
     -H  "Content-Type: application/json" \
-    -d $json_payload)
+    -d $escaped_payload)
 
 echo
 echo "Response:"
