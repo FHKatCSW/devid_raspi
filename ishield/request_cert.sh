@@ -16,6 +16,7 @@ curl_response=$(curl -k -X POST \
 --data '{"certificateRequest":"'$(cat $CSR_FILE | tr -d '\n' | sed 's/-----END.*CERTIFICATE-----/-----END CERTIFICATE-----/g' | sed 's/-----BEGIN.*CERTIFICATE-----/-----BEGIN CERTIFICATE-----/g')'"}' \
 "$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/generateCertificate")
 
-certificate=$(echo $curl_response | jq -r '.certificate')
+echo $curl_response
+#certificate=$(echo $curl_response | jq -r '.certificate')
 
-echo $certificate > certificate.pem
+#echo $certificate > certificate.pem
