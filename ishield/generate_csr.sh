@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Usage:
+# bash generate_csr.sh
+
 # Define the PKCS11_TOOL and PKCS11_MODULE variables
 PKCS11_TOOL="/usr/bin/pkcs11-tool"
 PKCS11_MODULE="/usr/lib/opensc-pkcs11.so"
