@@ -26,4 +26,5 @@ if [ ! -z "$c" ]; then subj="$subj/C=$c"; fi
 if [ ! -z "$serial_number" ]; then subj="$subj/serialNumber=$serial_number"; fi
 
 # Generate CSR using openssl command
-openssl req -engine pkcs11 -keyform engine -subj "$subj" -key "pkcs11:object=$key_id" -new -sha256 -out $output_file
+openssl req -engine pkcs11 -keyform engine -subj "$subj" -key "$key_id" -new -sha256 -out $output_file --verbose
+
