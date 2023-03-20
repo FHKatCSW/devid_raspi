@@ -12,10 +12,11 @@ fi
 # Parse the arguments
 SLOT_NUM="$1"
 PIN="$2"
+PKCS11_TOOL=/usr/bin/pkcs11-tool
 PKCS11_MODULE=/usr/lib/opensc-pkcs11.so
 
 
 # Run the HSM command and capture the output
-OUTPUT=$(pkcs11-tool --module PKCS11_MODULE --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects)
+OUTPUT=$($PKCS11_TOOL --module PKCS11_MODULE --slot "$SLOT_NUM" --login --pin "$PIN" --list-objects)
 
 echo "$OUTPUT"
