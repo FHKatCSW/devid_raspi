@@ -27,10 +27,9 @@ json_payload=$(jq -n \
 
 escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
 
+echo $escaped_payload
+
 client_cert="$P12_TOKEN:$P12_PASS"
-echo $client_cert
-echo
-echo $json_payload
 
 #curl_response=$(curl -X POST -s \
 #    --cert-type P12 \
