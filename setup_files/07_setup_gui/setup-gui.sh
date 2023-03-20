@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set user
+username="$1"
+
 function service_instruction {
   echo "Service name: $1"
   echo "👍 Status: systemctl status $1.service"
@@ -8,7 +11,7 @@ function service_instruction {
 }
 
 # Set the working directory for the PyQt application
-APP_WORKDIR="/home/$USER/devid_nameplate"
+APP_WORKDIR="/home/username/devid_nameplate"
 
 # Install python3-pyqt5
 sudo apt-get install python3-pyqt5
@@ -18,7 +21,7 @@ pip install -r "$APP_WORKDIR/requirements.txt"
 # pip install -r "/home/admin/devid_nameplate/requirements.txt"
 
 # Define the path to the Flask app within the virtual environment
-APP_PATH="/home/$USER/devid_nameplate/run.py"
+APP_PATH="/home/username/devid_nameplate/run.py"
 
 # Define service name
 SERVICE_NAME="devid-gui"
@@ -34,7 +37,7 @@ After=graphical.target
 WorkingDirectory=$APP_WORKDIR
 Environment="QT_DEBUG_PLUGINS=1"
 Environment="DISPLAY=:0.0"
-Environment="XAUTHORITY=/home/"$USER"/.Xauthority"
+Environment="XAUTHORITY=/home/"$username"/.Xauthority"
 ExecStart=/usr/bin/python $APP_PATH
 Restart=always
 

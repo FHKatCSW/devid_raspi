@@ -12,7 +12,8 @@ function warn {
     echo
 }
 
-echo "SUDO_USER: $SUDO_USER"
+username="$1"
+
 
 if ! command -v git &> /dev/null; then
     echo "Install git"
@@ -20,32 +21,32 @@ if ! command -v git &> /dev/null; then
     sudo apt-get install git
 fi
 
-if [[ ! -d "/home/$SUDO_USER/devid_raspi" ]]; then
+if [[ ! -d "/home/$usernamename/devid_raspi" ]]; then
     echo "Clone devid_raspi repository"
     git clone https://github.com/FHKatCSW/devid_raspi.git
 fi
 
 header Basic setup
-bash /home/"$USER"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
+bash /home/"$usernamename"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
 
 header Setup the iShield
-bash /home/"$USER"/devid_raspi/setup_files/02_setup_ishield/setup-ishield.sh
+bash /home/"$username"/devid_raspi/setup_files/02_setup_ishield/setup-ishield.sh
 
 header Setup py-hsm
-bash /home/"$USER"/devid_raspi/setup_files/03_setup_pyhsm/setup-pyhsm.sh
+bash /home/"$username"/devid_raspi/setup_files/03_setup_pyhsm/setup-pyhsm.sh $username
 
 header Setup HSM Log service
-bash /home/"$USER"/devid_raspi/setup_files/04_setup_hsm_log_service/setup-hsm-logger.sh
+bash /home/"$username"/devid_raspi/setup_files/04_setup_hsm_log_service/setup-hsm-logger.sh
 
 header Setup Certificate Storage
-bash /home/"$USER"/devid_raspi/setup_files/05_setup_certificate_storage/setup-certificate-storgae.sh
+bash /home/"$username"/devid_raspi/setup_files/05_setup_certificate_storage/setup-certificate-storgae.sh
 
 header Setup REST API
-bash /home/"$USER"/devid_raspi/setup_files/06_setup_rest_api/setup-rest-api.sh
+bash /home/"$username"/devid_raspi/setup_files/06_setup_rest_api/setup-rest-api.sh
 
 header Setup GUI
-bash /home/"$USER"/devid_raspi/setup_files/07_setup_gui/setup-gui.sh
+bash /home/"$username"/devid_raspi/setup_files/07_setup_gui/setup-gui.sh $username
 
 warn This is the last step: Raspberry will reboot afterwards
 header Setup Display
-bash /home/"$USER"/devid_raspi/setup_files/08_setup_display/setup-display.sh
+bash /home/"$username"/devid_raspi/setup_files/08_setup_display/setup-display.sh $username

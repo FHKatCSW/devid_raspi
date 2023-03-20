@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set user
+username="$1"
+
 function service_instruction {
   echo "Service name: $1"
   echo "👍 Status: systemctl status $1.service"
@@ -8,7 +11,7 @@ function service_instruction {
 }
 
 # Set the working directory for the PyQt application
-APP_WORKDIR="/home/$USER/devid_api"
+APP_WORKDIR="/home/$username/devid_api"
 
 # Define service name
 SERVICE_NAME="devid-api"
@@ -17,7 +20,7 @@ SERVICE_NAME="devid-api"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 
 # Define the path to the Flask app within the virtual environment
-APP_PATH="/home/$USER/devid_api/run.py"
+APP_PATH="/home/$username/devid_api/run.py"
 
 # Define the IP address and port for the Flask app to run on
 IP_ADDRESS="0.0.0.0"
@@ -32,7 +35,7 @@ Description=IEEE 802.1 AR REST API
 After=network.target
 
 [Service]
-User=$USER
+User=$username
 Environment="FLASK_APP=run.py"
 WorkingDirectory=$APP_WORKDIR
 ExecStart=flask run --host=$IP_ADDRESS --port=$PORT
