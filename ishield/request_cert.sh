@@ -24,11 +24,9 @@ json_payload=$(jq -n \
 
 escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
 
+# openssl pkcs12 -in fhk_hmi_setup_v3.p12 -out fhk_hmi_setup_v3.cert.pem -nodes -password pass:foo123
+
 echo $escaped_payload
-
-client_cert="$(cat $P12_TOKEN):$P12_PASS"
-
-echo $client_cert
 
 #curl_response=$(curl -X POST -s \
 #    --cert-type P12 \
@@ -41,7 +39,7 @@ echo $client_cert
 
 curl_response=$(curl -k \
     --cert-type P12 \
-    --cert $client_cert \
+    --cert $P12_TOKEN:"$P12_PASS" \
     -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
     -H  "accept: application/json" \
     -H  "Content-Type: application/json" \
