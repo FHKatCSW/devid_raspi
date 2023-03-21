@@ -2,6 +2,8 @@ import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
 import logger
+import base64
+
 
 class CertRequest:
     def __init__(self, base_url, p12_file, p12_pass, csr_file):
@@ -18,36 +20,40 @@ class CertRequest:
 
     def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
         # Create JSON payload
+        try:
+            payload = {
+                'certificate_request': self.csr,
+                'certificate_profile_name': certificate_profile_name,
+                'end_entity_profile_name': end_entity_profile_name,
+                'certificate_authority_name': certificate_authority_name,
+            }
+            json_payload = json.dumps(payload)
 
-        payload = {
-            'certificate_request': self.csr,
-            'certificate_profile_name': certificate_profile_name,
-            'end_entity_profile_name': end_entity_profile_name,
-            'certificate_authority_name': certificate_authority_name,
-        }
-        json_payload = json.dumps(payload)
+            url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll'
 
-        url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll'
+            # Send request
+            session = requests.Session()
+            session.mount(url, Pkcs12Adapter(max_retries=3, pkcs12_filename=self.p12_file, pkcs12_password=self.p12_pass))
+            response = session.post(
+                url=url,
+                headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
+                data=json_payload,
+                verify=False
+            )
+            self.logger.info("-Save certificate")
+            self.logger.info("--Path: {}".format(cert_file))
 
-        # Send request
-        session = requests.Session()
-        session.mount(url, Pkcs12Adapter(max_retries=3, pkcs12_filename=self.p12_file, pkcs12_password=self.p12_pass))
-        response = session.post(
-            url=url,
-            headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
-            data=json_payload,
-            verify=False
-        )
-        self.logger.info("-Save certificate")
-        self.logger.info("--Path: {}".format(cert_file))
+            certificate_bytes = base64.b64decode(response.text["certificate"])
 
-        # Save certificate to file
-        with open(cert_file, 'w') as f:
-            f.write(response.text)
+            with open(cert_file, "wb") as certificate_file:
+                certificate_file.write(certificate_bytes)
 
-        # Print response
-        print('Response:')
-        print(response.text)
+            self.logger.info("-Certificate received ✅")
+            self.logger.info("--Serial number: {}".format(response.text["serial_number"]))
+
+        except (requests.exceptions.RequestException, json.JSONDecodeError, base64.binascii.Error, OSError, KeyError) as e:
+            self.logger.error(f"Error requesting certificate: {str(e)}")
+
 
 
 
