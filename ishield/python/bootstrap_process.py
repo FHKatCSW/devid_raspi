@@ -60,7 +60,7 @@ class BootstrapIdevId:
             base_url=base_url,
             p12_file=p12_file,
             p12_pass=p12_pass,
-            csr_file='/home/admin/certs/csr_{}.csr'.format(self.id),
+            csr_file='/home/admin/certs/id_{}/csr_{}.csr'.format(self.id, self.id),
         )
 
         cert_req.request_certificate(cert_file='/home/admin/certs/id_{}/my_cert_{}.cert.pem'.format(self.id, self.id),
