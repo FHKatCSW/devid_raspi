@@ -26,6 +26,11 @@ escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
 
 # openssl pkcs12 -in fhk_hmi_setup_v3.p12 -out fhk_hmi_setup_v3.cert.pem -nodes -password pass:foo123
 
+mkdir -p /home/admin/certs
+
+openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/key.pem -nocerts -nodes -password pass:foo123
+openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/crt.pem -clcerts -nokeys -password pass:foo123
+
 echo $escaped_payload
 
 #curl_response=$(curl -X POST -s \
@@ -38,12 +43,17 @@ echo $escaped_payload
 
 
 curl_response=$(curl -k \
-    --cert-type P12 \
-    --cert /home/admin/fhk_hmi_setup_v3.p12:$P12_PASS \
+    --cert /home/admin/certs/crt.pem \
+    --cert-type PEM \
+    --key /home/admin/certs/key.pem \
+    --key-type PEM \
     -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
     -H  "accept: application/json" \
     -H  "Content-Type: application/json" \
     -d "$escaped_payload")
+
+rm /home/admin/certs/key.pem
+rm /home/admin/certs/cert.pem
 
 echo
 echo "Response:"
