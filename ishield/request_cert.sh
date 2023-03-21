@@ -11,7 +11,6 @@ CSR_FILE=$4
 cert_profile_name="DeviceIdentity-Raspberry"
 ee_profile_name="KF-CS-EE-DeviceIdentity-Raspberry"
 ca_name="KF-CS-HMI-2023-CA"
-username="fhk_hmi_setup_v3"
 
 csr=$(cat $CSR_FILE)
 template='{"certificate_request":$csr, "certificate_profile_name":$cp, "end_entity_profile_name":$eep, "certificate_authority_name":$ca}'
@@ -28,8 +27,8 @@ escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
 
 mkdir -p /home/admin/certs
 
-openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/key.pem -nocerts -nodes -password pass:foo123
-openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/crt.pem -clcerts -nokeys -password pass:foo123
+openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/key.pem -nocerts -nodes -password pass:$P12_PASS
+openssl pkcs12 -in $P12_TOKEN -out /home/admin/certs/crt.pem -clcerts -nokeys -password pass:$P12_PASS
 
 echo $escaped_payload
 
