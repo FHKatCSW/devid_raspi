@@ -3,10 +3,12 @@ from create_key import HsmKey
 from generate_csr import GenerateCsr
 from request_cert import CertRequest
 import os
+import logger
 
 class BootstrapIdevId:
     def __init__(self, pin, slot, id=None):
 
+        self.logger = logger.get_logger("Bootstrap IDevID")
         self.pin = pin
         self.slot = slot
 
@@ -25,9 +27,10 @@ class BootstrapIdevId:
 
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
-            print(f"Created directory at {directory_path}")
+            self.logger.info(f"Created directory at {directory_path}")
 
     def create_key(self):
+        self.logger.info("🔑 Create keypair")
         hsm_key = HsmKey(slot=self.slot,
                          pin=self.pin,
                          public_key_label="my_rsa_pub_{}".format(self.id),
@@ -35,7 +38,7 @@ class BootstrapIdevId:
         hsm_key.generate_rsa_key_pair()
 
     def generate_csr(self, cn=None, o=None, ou=None, c=None, serial_number=None):
-
+        self.logger.info("🖋️ Create CSR")
         print("--- Generate CSR ---")
         csr_generate = GenerateCsr(
             library_path='/usr/lib/opensc-pkcs11.so',
@@ -56,6 +59,8 @@ class BootstrapIdevId:
                                   c=c)
 
     def request_cert(self, base_url, p12_file, p12_pass, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
+        self.logger.info("📄 Request certificate")
+
         cert_req = CertRequest(
             base_url=base_url,
             p12_file=p12_file,
