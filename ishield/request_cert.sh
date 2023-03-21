@@ -39,7 +39,7 @@ echo $escaped_payload
 
 curl_response=$(curl -k \
     --cert-type P12 \
-    --cert $P12_TOKEN:"$P12_PASS" \
+    --cert /home/admin/fhk_hmi_setup_v3.p12:$P12_PASS \
     -X POST "https://$EJBCA_BASE_URL/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll" \
     -H  "accept: application/json" \
     -H  "Content-Type: application/json" \
