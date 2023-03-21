@@ -69,7 +69,7 @@ class BootstrapIdevId:
                                      certificate_authority_name=certificate_authority_name)
 
 if __name__ == "__main__":
-    bootstrap = BootstrapIdevId(pin="1234", slot=0)
+    bootstrap = BootstrapIdevId(pin="1234", slot=0, id=7)
     bootstrap.create_key()
     bootstrap.generate_csr()
     bootstrap.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
