@@ -53,7 +53,7 @@ curl_response=$(curl -k \
     -d "$escaped_payload")
 
 rm /home/admin/certs/key.pem
-rm /home/admin/certs/cert.pem
+rm /home/admin/certs/crt.pem
 
 echo
 echo "Response:"
