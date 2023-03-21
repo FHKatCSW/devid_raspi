@@ -30,6 +30,7 @@ class CertRequest:
         session = requests.Session()
         session.mount(url, Pkcs12Adapter(max_retries=3, pkcs12_filename=self.p12_file, pkcs12_password=self.p12_pass))
         response = session.post(
+            url=url,
             headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
             data=json_payload,
             verify=False
