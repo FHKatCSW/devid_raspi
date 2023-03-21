@@ -2,7 +2,6 @@ import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
 import logger
-import random
 
 class CertRequest:
     def __init__(self, base_url, p12_file, p12_pass, csr_file):
@@ -17,18 +16,14 @@ class CertRequest:
         with open(csr_file, 'r') as f:
             self.csr = f.read()
 
-    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name, username=None):
+    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
         # Create JSON payload
-
-        if username is None:
-            username="user_".format(random.randint(1000, 9999))
 
         payload = {
             'certificate_request': self.csr,
             'certificate_profile_name': certificate_profile_name,
             'end_entity_profile_name': end_entity_profile_name,
             'certificate_authority_name': certificate_authority_name,
-            'username': username,
         }
         json_payload = json.dumps(payload)
 
@@ -61,10 +56,8 @@ if __name__ == "__main__":
         base_url='campuspki.germanywestcentral.cloudapp.azure.com',
         p12_file='/home/admin/fhk_hmi_setup_v3.p12',
         p12_pass='foo123',
-        csr_file='/home/admin/certs/setup_test_3.csr',
+        csr_file='/home/admin/certs/setup_test_5.csr',
     )
-
-
 
     cert_req.request_certificate(cert_file='/home/admin/my_cert.pem',
                                  certificate_profile_name='DeviceIdentity-Raspberry',
