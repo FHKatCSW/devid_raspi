@@ -26,7 +26,7 @@ escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
 
 echo $escaped_payload
 
-client_cert="$P12_TOKEN:$P12_PASS"
+client_cert="$(cat $P12_TOKEN):$P12_PASS"
 
 #curl_response=$(curl -X POST -s \
 #    --cert-type P12 \
