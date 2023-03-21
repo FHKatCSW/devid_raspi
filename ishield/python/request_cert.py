@@ -1,9 +1,12 @@
 import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
+import logger
 
 class CertRequest:
     def __init__(self, base_url, p12_file, p12_pass, csr_file):
+        self.logger = logger.get_logger("CertRequest")
+
         self.base_url = base_url
         self.p12_file = p12_file
         self.p12_pass = p12_pass
@@ -34,6 +37,8 @@ class CertRequest:
             data=json_payload,
             verify=False
         )
+        self.logger.info("-Save certificate")
+        self.logger.info("--Path: {}".format(cert_file))
 
         # Save certificate to file
         with open(cert_file, 'w') as f:
@@ -56,5 +61,4 @@ if __name__ == "__main__":
     cert_req.request_certificate(cert_file='/home/admin/my_cert.pem',
                                  certificate_profile_name='DeviceIdentity-Raspberry',
                                  end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
-                                 certificate_authority_name='KF-CS-HMI-2023-CA',
-                                 username='fhk_hmi_setup_v3')
+                                 certificate_authority_name='KF-CS-HMI-2023-CA')

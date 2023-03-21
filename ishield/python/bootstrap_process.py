@@ -44,7 +44,7 @@ class BootstrapIdevId:
             library_path='/usr/lib/opensc-pkcs11.so',
             slot_num=self.slot,
             pin=self.pin,
-            key_id="my_rsa_pvt_{}".format(self.id),
+            key_label="my_rsa_pvt_{}".format(self.id),
             output_file='/home/admin/certs/id_{}/csr_{}.csr'.format(self.id, self.id)
         )
         if cn:

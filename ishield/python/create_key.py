@@ -1,11 +1,15 @@
 from pyhsm.hsmclient import HsmClient
 import random
+import logger
 
 
 class HsmKey:
     def __init__(self, slot, pin, public_key_label, private_key_label, key_length=2048, library_path = '/usr/lib/opensc-pkcs11.so',
                  public_exponent=b"\x01\x00\x01", token=True, modifiable=False, extractable=False, sign_verify=True,
                  encrypt_decrypt=True, wrap_unwrap=True, derive=False):
+
+        self.logger = logger.get_logger("HsmKey")
+
         self.slot = slot
         self.pin = pin
         self.pkcs11_lib = library_path
@@ -22,6 +26,10 @@ class HsmKey:
         self.derive = derive
 
     def generate_rsa_key_pair(self):
+        self.logger.info("-Generate RSA keypair")
+        self.logger.info("--Private Key label: {}".format(self.private_key_label))
+        self.logger.info("--Public Key label: {}".format(self.public_key_label))
+
         with HsmClient(slot=self.slot, pin=self.pin, pkcs11_lib=self.pkcs11_lib) as c:
             key_handles = c.create_rsa_key_pair(public_key_label=self.public_key_label,
                                                 private_key_label=self.private_key_label,
