@@ -28,6 +28,8 @@ echo $escaped_payload
 
 client_cert="$(cat $P12_TOKEN):$P12_PASS"
 
+echo $client_cert
+
 #curl_response=$(curl -X POST -s \
 #    --cert-type P12 \
 #    --cert "$client_cert" \
