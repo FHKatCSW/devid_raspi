@@ -20,7 +20,7 @@ class GenerateCsr:
         )
         self.key_id = hsm_objects.filter_id_by_label(key_name=self.key_label)
 
-    def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None, dns_names=None, ip_addresses=None):
+    def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None):
         # Build command to call the bash script with named arguments
         command = [
             "./bash/generate_csr.sh",
@@ -66,7 +66,8 @@ if __name__ == "__main__":
         library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234',
-        key_id='my_rsa_pvt_5170',
-        output_file='csr_{}'.format(random_id)
+        key_id='4',
+        output_file='/home/admin/csr_{}.csr'.format(random_id)
     )
-    csr_generate.generate_csr(cn="test_csr_{}.csr".format(random_cn))
+    csr_generate.generate_csr(cn="test_cn_{}".format(random_cn),
+                              serial_number=random_cn)

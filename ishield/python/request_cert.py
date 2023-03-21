@@ -13,14 +13,13 @@ class CertRequest:
         with open(csr_file, 'r') as f:
             self.csr = f.read()
 
-    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name, username):
+    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
         # Create JSON payload
         payload = {
             'certificate_request': self.csr,
             'certificate_profile_name': certificate_profile_name,
             'end_entity_profile_name': end_entity_profile_name,
             'certificate_authority_name': certificate_authority_name,
-            'username': username
         }
         json_payload = json.dumps(payload)
 
