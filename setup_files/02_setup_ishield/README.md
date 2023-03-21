@@ -14,7 +14,7 @@ openssl engine pkcs11 -t -c –vvvv
 ```
 
 ``` bash
-openssl req -engine pkcs11 -keyform engine -subj "/CN=setup_test_3/" -key "3" -new -sha256 -out setup_test_3.csr --verbose
+openssl req -engine pkcs11 -keyform engine -subj "/CN=setup_test_3/serialNumber=12345678/" -key "3" -new -sha256 -out /home/admin/certs/setup_test_3.csr --verbose
 ```
 
 ``` bash
