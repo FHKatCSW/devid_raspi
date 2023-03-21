@@ -14,13 +14,12 @@ ca_name="KF-CS-HMI-2023-CA"
 username="fhk_hmi_setup_v3"
 
 csr=$(cat $CSR_FILE)
-template='{"certificate_request":$csr, "certificate_profile_name":$cp, "end_entity_profile_name":$eep, "certificate_authority_name":$ca, "username":$ee}'
+template='{"certificate_request":$csr, "certificate_profile_name":$cp, "end_entity_profile_name":$eep, "certificate_authority_name":$ca}'
 json_payload=$(jq -n \
     --arg csr "$csr" \
     --arg cp "$cert_profile_name" \
     --arg eep "$ee_profile_name" \
     --arg ca "$ca_name" \
-    --arg ee "$username" \
     "$template")
 
 escaped_payload=$(echo "$json_payload" | sed 's/"/\\"/g')
