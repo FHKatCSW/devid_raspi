@@ -19,7 +19,7 @@ class BootstrapIdevId:
         self.serial_number=self.id
 
         self.create_directory("/home/admin/certs")
-        self.create_directory("home/admin/certs/id_{}".format(self.id))
+        self.create_directory("/home/admin/certs/id_{}".format(self.id))
 
     def create_directory(self, directory_path):
 
