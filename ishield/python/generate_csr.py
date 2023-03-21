@@ -40,7 +40,7 @@ class GenerateCsr:
         if c:
             command += [f'--c={c}']
         if serial_number:
-            command += [f'--serial={serial_number}']
+            command += [f'--serial-number={serial_number}']
 
         # Add subject alternative names to the CSR
         # if dns_names or ip_addresses:
