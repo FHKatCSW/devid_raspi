@@ -10,7 +10,7 @@ class CertValidator:
 
     def _load_ca_certs_via_public_web(self, ca_chain_url):
         self.logger.info("-load CA chain via public web interface")
-        response = requests.get(ca_chain_url)
+        response = requests.get(ca_chain_url, verify=False)
         ca_chain = response.content.decode("utf-8")
         certs = ca_chain.split("-----BEGIN CERTIFICATE-----\n")[1:]
         certs = ["-----BEGIN CERTIFICATE-----\n" + cert for cert in certs]
