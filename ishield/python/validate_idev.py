@@ -28,9 +28,9 @@ class CertValidator:
         store_ctx = crypto.X509StoreContext(store, cert)
         try:
             store_ctx.verify_certificate()
-            print("Certificate is valid.")
+            self.logger.info("--✅ certificate is valid")
         except crypto.X509StoreContextError as e:
-            print("Certificate is not valid.")
+            self.logger.info("--❌ certificate is NOT valid")
             print(e)
 
 def validate_cert_via_public_web(ca_chain_url, cert_path):
