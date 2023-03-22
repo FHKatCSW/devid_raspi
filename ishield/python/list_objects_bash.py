@@ -76,7 +76,8 @@ class HsmObjects:
             if key_name in keys_str[key_type]:
                 return keys_str[key_type][key_name]["ID"]
 
-if __name__ == "__main__":
+
+def main():
     print("--- Print Objects ---")
     hsm_objects = HsmObjects(
         slot_num=0,
@@ -85,4 +86,7 @@ if __name__ == "__main__":
     print(hsm_objects.to_json())
     #print(hsm_objects.to_dict())
     print("--- Get key ID ---")
-    print("ID: {}".format(hsm_objects.filter_id_by_label(key_name="my_rsa_pvt_5170")))
+    print("ID: {}".format(hsm_objects.filter_id_by_label(key_name="my_rsa_pvt_86599")))
+
+if __name__ == "__main__":
+    main()
