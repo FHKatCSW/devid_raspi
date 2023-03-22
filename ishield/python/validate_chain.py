@@ -16,6 +16,14 @@ class CertValidator:
         certs = ["-----BEGIN CERTIFICATE-----\n" + cert for cert in certs]
         self.ca_certs = [crypto.load_certificate(crypto.FILETYPE_PEM, cert) for cert in certs]
 
+    def _load_ca_certs_via_local_storage(self, ca_chain_path):
+        self.logger.info("-load CA chain via local storage")
+        # Load the CA chain from a file
+        with open(ca_chain_path, 'rb') as f:
+            ca_chain = f.read()
+
+        self.ca_certs = [crypto.load_certificate(crypto.FILETYPE_PEM, cert) for cert in ca_chain]
+
     def validate(self, cert_path):
         self.logger.info("-validate certificate against chain")
         self.logger.info("--certificate: {}".format(cert_path))
@@ -28,10 +36,12 @@ class CertValidator:
         store_ctx = crypto.X509StoreContext(store, cert)
         try:
             store_ctx.verify_certificate()
-            self.logger.info("--✅ certificate is valid")
+            self.logger.info("-- ✅ certificate is valid")
+            return True
         except crypto.X509StoreContextError as e:
-            self.logger.info("--❌ certificate is NOT valid")
-            print(e)
+            self.logger.info("-- ❌ certificate is NOT valid")
+            self.logger.error(str(e))
+            return False
 
 def validate_cert_via_public_web(ca_chain_url, cert_path):
     public_web_validator = CertValidator()

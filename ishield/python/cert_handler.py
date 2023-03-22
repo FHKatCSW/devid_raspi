@@ -42,5 +42,12 @@ def import_certificate():
                                    cert_label="test",
                                    certificate_path="/home/admin/certs/test.pem")
 
+def export_certificate():
+    export_cert = CertHandler(
+        pin = "1234",
+        cert_id = 5,
+    )
+    export_cert.export_certificate(output_file="/home/admin/certs/test.pem")
+
 if __name__ == "__main__":
     import_certificate()

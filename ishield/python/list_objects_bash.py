@@ -3,10 +3,9 @@ import json
 import subprocess
 
 class HsmObjects:
-    def __init__(self, library_path, slot_num, pin):
+    def __init__(self, slot_num, pin):
         self.private_keys = {}
         self.public_keys = {}
-        self.library_path = library_path
         self.slot_num = slot_num
         self.pin = pin
         objects = self.list_objects_on_hsm()
@@ -14,7 +13,7 @@ class HsmObjects:
 
     def list_objects_on_hsm(self):
         # Run the bash script and capture the output
-        result = subprocess.check_output(["./bash/list_objects.sh", self.library_path, str(self.slot_num), self.pin])
+        result = subprocess.check_output(["./bash/list_objects.sh",  str(self.slot_num), self.pin])
         result_str = result.decode('utf-8')  # decode bytes object to string
         return result_str
 
@@ -80,7 +79,6 @@ class HsmObjects:
 if __name__ == "__main__":
     print("--- Print Objects ---")
     hsm_objects = HsmObjects(
-        library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234'
     )
