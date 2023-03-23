@@ -69,12 +69,30 @@ class HsmObjects:
     def to_json(self):
         return json.dumps(self.to_dict(), indent=4)
 
-    def filter_id_by_label(self, key_name):
+    def filter_id_by_label(self, key_label):
         keys = self.to_json()
         keys_str = json.loads(keys)
         for key_type in ["private_keys", "public_keys"]:
-            if key_name in keys_str[key_type]:
-                return keys_str[key_type][key_name]["ID"]
+            if key_label in keys_str[key_type]:
+                return keys_str[key_type][key_label]["ID"]
+
+    def delete_all_keys(self):
+        for key_type in self.keys:
+            priv_pub_key = "priv" if key_type == "private_keys" else "pub"
+            for key_name in self.keys[key_type]:
+                key_data = self.keys[key_type][key_name]
+                self.delete_key(priv_pub_key, key_data['ID'])
+
+    def delete_key_by_label(self, key_label):
+        self.filter_id_by_label(key_label)
+
+    def delete_key(self, priv_pub_key, key_id):
+        subprocess.call(
+            ['./bash/delete_keys_on_hsm.sh',
+             priv_pub_key,
+             f'-i={key_id}',
+             self.pin
+        ])
 
 
 def main():
@@ -86,7 +104,7 @@ def main():
     print(hsm_objects.to_json())
     #print(hsm_objects.to_dict())
     print("--- Get key ID ---")
-    print("ID: {}".format(hsm_objects.filter_id_by_label(key_name="my_rsa_pvt_86599")))
+    print("ID: {}".format(hsm_objects.filter_id_by_label(key_label="my_rsa_pvt_86599")))
 
 if __name__ == "__main__":
     main()

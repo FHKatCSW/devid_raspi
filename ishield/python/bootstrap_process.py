@@ -4,6 +4,7 @@ from generate_csr import GenerateCsr
 from request_cert import CertRequest
 from cert_handler import CertHandler
 from validate_chain import CertValidator
+from hsm_objects import HsmObjects
 import os
 import logger
 
@@ -45,6 +46,8 @@ class BootstrapDevId:
 
 
     def presetup(self):
+
+        self.validate_key_label_exists()
         self.cn="test_cn_{}".format(self.id)
         self.serial_number=self.id
 
@@ -141,6 +144,17 @@ class BootstrapDevId:
         public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
         self.valid_idev = public_web_validator.validate(idev_cert_path)
 
+    def validate_key_label_exists(self):
+        hsm_objects = HsmObjects(
+            slot_num=self.slot,
+            pin=self.pin
+        )
+        key_label_on_hsm = hsm_objects.filter_id_by_label(key_name=self.private_key_label)
+        if key_label_on_hsm is not None:
+            Exception("key label already exists for key label: {}".format(self.private_key_label))
+
+    def configure_azure(self):
+        self.logger.info("🛠️ Work in progress")
 
 
 def bootstrap_idev():
@@ -169,6 +183,7 @@ def bootstrap_ldev():
                            end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
                            certificate_authority_name='KF-CS-HMI-2023-CA')
     ldevid.import_certificate()
+    ldevid.configure_azure()
 
 if __name__ == "__main__":
     bootstrap_idev()
