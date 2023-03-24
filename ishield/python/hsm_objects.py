@@ -93,7 +93,7 @@ class HsmObjects:
         subprocess.call(
             ['./bash/delete_keys_on_hsm.sh',
              priv_pub_key,
-             f'-i={key_id}',
+             f'-i {key_id}',
              self.pin
         ])
 
