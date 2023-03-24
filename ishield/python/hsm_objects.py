@@ -90,12 +90,12 @@ class HsmObjects:
     def delete_key(self, priv_pub_key, key_id):
         print(priv_pub_key)
         print(f'-i={key_id}')
-        subprocess.call(
+        print(subprocess.call(
             ['./bash/delete_keys_on_hsm.sh',
              priv_pub_key,
              f'-i {key_id}',
              self.pin
-        ])
+        ]))
 
 
 def main():
