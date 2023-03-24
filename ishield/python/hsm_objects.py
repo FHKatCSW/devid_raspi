@@ -83,8 +83,7 @@ class HsmObjects:
 
     def delete_ldev_keys(self):
         keys = self.to_dict()
-        filtered_dict = {k: v for k, v in keys.items() if
-                         not k.startswith('ldev') and not any(k2.startswith('ldev') for k2 in v.keys())}
+        filtered_dict = {k1: {k2: v2 for k2, v2 in v1.items() if k2.startswith('idev')} for k1, v1 in keys.items()}
         print(filtered_dict)
         self.delete_keys(filtered_dict)
 
