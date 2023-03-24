@@ -44,4 +44,8 @@ echo "label = $label"
 
 PKCS11_TOOL=/usr/bin/pkcs11-tool
 
-$PKCS11_TOOL --delete-object --type "$key_type"key --id "$id" --label "$label" --login --pin "$1"
+if [[ -n "$id" ]]; then
+  $PKCS11_TOOL --delete-object --type "$key_type"key --id "$id" --login --pin "$1"
+else
+  $PKCS11_TOOL --delete-object --type "$key_type"key --label "$label" --login --pin "$1"
+fi
