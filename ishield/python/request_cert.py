@@ -62,7 +62,7 @@ if __name__ == "__main__":
         base_url='campuspki.germanywestcentral.cloudapp.azure.com',
         p12_file='/home/admin/fhk_hmi_setup_v3.p12',
         p12_pass='foo123',
-        csr_file='/home/admin/certs/setup_test_5.csr',
+        csr_file='/home/admin/ldev-azure.csr',
     )
 
     cert_req.request_certificate(cert_file='/home/admin/my_cert.pem',
