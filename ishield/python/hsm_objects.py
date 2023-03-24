@@ -88,6 +88,8 @@ class HsmObjects:
         self.filter_id_by_label(key_label)
 
     def delete_key(self, priv_pub_key, key_id):
+        print(priv_pub_key)
+        print(f'-i={key_id}')
         subprocess.call(
             ['./bash/delete_keys_on_hsm.sh',
              priv_pub_key,
