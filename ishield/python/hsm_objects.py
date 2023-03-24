@@ -91,7 +91,7 @@ class HsmObjects:
         print(priv_pub_key)
         print(f'-i={key_id}')
 
-        command = ['./bash/delete_keys_on_hsm.sh', priv_pub_key, f'-i {key_id}', self.pin]
+        command = ['./bash/delete_keys_on_hsm.sh', priv_pub_key, f'-i "{key_id}"', self.pin]
         print("Executing command:", " ".join(command))
         subprocess.call(command)
 
