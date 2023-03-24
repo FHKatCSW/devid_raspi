@@ -77,7 +77,7 @@ class HsmObjects:
                 return keys_str[key_type][key_label]["ID"]
 
     def delete_all_keys(self):
-        keys = self.to_json()
+        keys = self.to_dict()
         for key_type in keys:
             priv_pub_key = "priv" if key_type == "private_keys" else "pub"
             for key_name in keys[key_type]:
