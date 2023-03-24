@@ -7,4 +7,4 @@ if __name__ == "__main__":
         pin='1234'
     )
 
-    hsm_objects.delete_all_keys()
+    hsm_objects.delete_ldev_keys()
