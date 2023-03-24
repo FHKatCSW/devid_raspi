@@ -8,7 +8,6 @@ if __name__ == "__main__":
     csr_file = '/home/admin/csr_{}.csr'.format(random_id)
     print("--- Generate CSR ---")
     csr_generate = GenerateCsr(
-        library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234',
         key_id='9016cb947f0000001000000000000000',
