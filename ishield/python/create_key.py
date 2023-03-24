@@ -45,11 +45,23 @@ class HsmKey:
             return key_handles
 
 
-if __name__ == "__main__":
+def generate_ldev_key():
     random_id = random.randint(1000, 9999)
     hsm_key = HsmKey(slot=0,
                      pin="1234",
-                     public_key_label="my_rsa_pub_{}".format(random_id),
-                     private_key_label="my_rsa_pvt_{}".format(random_id))
-    key_handles = hsm_key.generate_rsa_key_pair()
+                     public_key_label="ldev_pub_key_{}".format(random_id),
+                     private_key_label="ldev_pvt_key_{}".format(random_id))
+    hsm_key.generate_rsa_key_pair()
+
+def generate_idev_key():
+    random_id = random.randint(1000, 9999)
+    hsm_key = HsmKey(slot=0,
+                     pin="1234",
+                     public_key_label="idev_pub_key_{}".format(random_id),
+                     private_key_label="idev_pvt_key_{}".format(random_id))
+    hsm_key.generate_rsa_key_pair()
+
+if __name__ == "__main__":
+    generate_idev_key()
+    generate_ldev_key()
 
