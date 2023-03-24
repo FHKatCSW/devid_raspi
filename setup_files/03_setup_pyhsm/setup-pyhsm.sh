@@ -13,4 +13,6 @@ cd /home/$username/libhsm/build
 ./build_libhsm
 sudo cp "/home/$username/libhsm/build/libhsm.so" /usr/lib/libhsm.so
 
+pip install py-hsm
+
 echo "✅ py-hsm setup finished"

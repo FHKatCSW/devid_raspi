@@ -78,6 +78,22 @@ class HsmObjects:
 
     def delete_all_keys(self):
         keys = self.to_dict()
+        self.delete_keys(keys)
+
+
+    def delete_ldev_keys(self):
+        keys = self.to_dict()
+        filtered_dict = {k: v for k, v in keys.items() if
+                         k.startswith('ldev') or any(k2.startswith('ldev') for k2 in v.keys())}
+        self.delete_keys(filtered_dict)
+
+    def delete_idev_keys(self):
+        keys = self.to_dict()
+        filtered_dict = {k: v for k, v in keys.items() if
+                         k.startswith('idev') or any(k2.startswith('idev') for k2 in v.keys())}
+        self.delete_keys(filtered_dict)
+
+    def delete_keys(self, keys):
         for key_type in keys:
             priv_pub_key = "priv" if key_type == "private_keys" else "pub"
             for key_name in keys[key_type]:
