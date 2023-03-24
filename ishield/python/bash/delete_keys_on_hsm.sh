@@ -1,52 +1,42 @@
 #!/bin/bash
 
-if [[ -z "$1" ]] || [[ -z "$2" ]] || [[ -z "$3" ]]; then
-  echo "$1; $2; $3; $4"
-  echo "Usage: $0 <priv|pub> [-i <id>|-l <label>] <pin>"
-  exit 1
-fi
-
-key_type="$1"
-id=""
-label=""
-
-shift
-
-while getopts ":i:l:" opt; do
-  case ${opt} in
-    i)
-      id="$OPTARG"
-      ;;
-    l)
-      label="$OPTARG"
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-    :)
-      echo "Option -$OPTARG requires an argument." >&2
-      exit 1
-      ;;
-  esac
-done
-
-if [[ -z "$id" ]] && [[ -z "$label" ]]; then
-  echo "Please specify either an ID or a label."
-  exit 1
-elif [[ -n "$id" ]] && [[ -n "$label" ]]; then
-  echo "Please specify either an ID or a label, not both."
-  exit 1
-fi
-
-echo "key_type = $key_type"
-echo "id = $id"
-echo "label = $label"
-
+# Set the path to the PKCS11 tool
 PKCS11_TOOL=/usr/bin/pkcs11-tool
 
-if [[ -n "$id" ]]; then
-  $PKCS11_TOOL --delete-object --type "$key_type"key --id=$id --login --pin $3
-else
-  $PKCS11_TOOL --delete-object --type "$key_type"key --label "$label" --login --pin $3
+# Parse command line arguments
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+
+    case $key in
+        --key_type)
+        key_type="$2"
+        shift
+        shift
+        ;;
+        --id)
+        id="$2"
+        shift
+        shift
+        ;;
+        --pin)
+        pin="$2"
+        shift
+        shift
+        ;;
+        *)
+        echo "Unknown option: $key"
+        exit 1
+        ;;
+    esac
+done
+
+# Check that all required arguments were provided
+if [[ -z "$key_type" || -z "$id" || -z "$pin" ]]
+then
+    echo "Usage: $0 --key_type <key_type> --id <id> --pin <pin>"
+    exit 1
 fi
+
+# Run the PKCS11 tool command to delete the object
+$PKCS11_TOOL --delete-object --type "$key_type"key --id=$id --login --pin $pin
