@@ -10,6 +10,9 @@ function service_instruction {
   echo "↩️ Restart: sudo systemctl restart $1.service"
 }
 
+pip install requests-pkcs12
+pip install cryptography==38.0.4
+
 # Set the working directory for the PyQt application
 APP_WORKDIR="/home/$username/devid_api"
 

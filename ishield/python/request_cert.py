@@ -42,6 +42,8 @@ class CertRequest:
             )
             self.logger.info("-Save certificate")
             self.logger.info("--Path: {}".format(cert_file))
+            self.logger.info("--Response: {}".format(response.text))
+
 
             certificate_bytes = base64.b64decode(response.text["certificate"])
 
