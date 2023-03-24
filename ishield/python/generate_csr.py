@@ -1,28 +1,26 @@
 import subprocess
 import random
-import list_objects_bash
+from hsm_objects import HsmObjects
 import logger
 
 
 class GenerateCsr:
-    def __init__(self, slot_num, pin, output_file, key_id=None, key_label=None, library_path='/usr/lib/opensc-pkcs11.so'):
+    def __init__(self, slot_num, pin, output_file, key_id=None, key_label=None):
         self.logger = logger.get_logger("GenerateCsr")
 
         self.key_id = key_id
         self.key_label = key_label
         self.slot_num = slot_num
         self.pin = pin
-        self.library_path = library_path
         self.output_file = output_file
 
     def get_key_id_by_label(self):
         self.logger.info("-Find key ID to given label {}".format(self.key_label))
-        hsm_objects = list_objects_bash.HsmObjects(
-            library_path=self.library_path,
+        hsm_objects = HsmObjects(
             slot_num=self.slot_num,
             pin=self.pin
         )
-        self.key_id = hsm_objects.filter_id_by_label(key_name=self.key_label)
+        self.key_id = hsm_objects.filter_id_by_label(key_label=self.key_label)
         self.logger.info("--Key ID: {}".format(self.key_id))
 
     def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None):
