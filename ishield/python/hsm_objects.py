@@ -102,6 +102,7 @@ def main():
         slot_num=0,
         pin='1234'
     )
+    print(hsm_objects.to_dict())
     print(hsm_objects.to_json())
     #print(hsm_objects.to_dict())
     print("--- Get key ID ---")
