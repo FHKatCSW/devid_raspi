@@ -4,7 +4,7 @@
 username="$1"
 
 #Clone the repository
-git clone https://github.com/bentonstark/libhsm.git /home/$username/libhsm/
+sudo git clone https://github.com/bentonstark/libhsm.git /home/$username/libhsm/
 
 # Build libhsm
 cd /home/$username/libhsm/build
