@@ -21,13 +21,13 @@ if ! command -v git &> /dev/null; then
     sudo apt-get install git
 fi
 
-if [[ ! -d "/home/$usernamename/devid_raspi" ]]; then
+if [[ ! -d "/home/$username/devid_raspi" ]]; then
     echo "Clone devid_raspi repository"
     git clone https://github.com/FHKatCSW/devid_raspi.git
 fi
 
 header Basic setup
-bash /home/"$usernamename"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
+bash /home/"$username"/devid_raspi/setup_files/01_setup_basic/setup-basic.sh
 
 header Setup the iShield
 bash /home/"$username"/devid_raspi/setup_files/02_setup_ishield/setup-ishield.sh

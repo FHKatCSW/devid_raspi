@@ -14,7 +14,7 @@ You can setup the whole raspberry with a oneliner:
 ⚠️ Beware: This will start a bash script ⚠️
 
 ```
-curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/setup_raspberry.sh | bash "admin"
+curl -sSL https://raw.githubusercontent.com/FHKatCSW/devid_raspi/main/setup_raspberry.sh | bash -s "admin"
 ```
 
 or load the Repository
