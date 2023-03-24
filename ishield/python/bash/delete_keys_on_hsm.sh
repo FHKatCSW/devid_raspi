@@ -38,4 +38,10 @@ elif [[ -n "$id" ]] && [[ -n "$label" ]]; then
   exit 1
 fi
 
-p11tool --delete-object --type "$key_type"key --id "$id" --label "$label" --login --pin "$1"
+echo "key_type = $key_type"
+echo "id = $id"
+echo "label = $label"
+
+PKCS11_TOOL=/usr/bin/pkcs11-tool
+
+$PKCS11_TOOL --delete-object --type "$key_type"key --id "$id" --label "$label" --login --pin "$1"
