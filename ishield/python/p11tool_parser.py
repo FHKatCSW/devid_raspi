@@ -31,10 +31,17 @@ class P11ToolParser:
         objects = self.parse_keys()
         return json.dumps(objects, indent=4)
 
+    def get_url_by_label(self, label):
+        keys = self.keys_to_json()
+        for key in keys:
+            if key["label"] == label:
+                return key["url"]
+        return None
+
 def main():
     p11_keys = P11ToolParser(pin="1234")
-    keys = p11_keys.list_keys()
-    print(keys)
+    url = p11_keys.get_url_by_label("ldev_pvt_key_3443")
+    print(url)
 
 if __name__ == "__main__":
     main()
