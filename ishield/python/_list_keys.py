@@ -1,5 +1,6 @@
 import json
 import subprocess
+import re
 
 # Execute the p11tool command and capture its output
 cmd = ['p11tool', '--provider=/usr/lib/opensc-pkcs11.so', '--list-keys', '--login', '--set-pin=1234']
