@@ -13,6 +13,8 @@ Make the scripts executable
 chmod +x ./bash/list_objects.sh
 ```
 
+
+openssl req -engine pkcs11 -keyform engine -subj "/CN=dfffvvvvvvvvrrrvvv" -passin pass:1234 -key d0db40ae7f0000001000000000000000 -new -sha256 -out "/home/admin/test.csr"
 target='
 {Private Key Object; RSA:
 [
