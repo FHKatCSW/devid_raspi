@@ -5,6 +5,8 @@ import subprocess
 cmd = ['p11tool', '--provider=/usr/lib/opensc-pkcs11.so', '--list-keys', '--login', '--set-pin=1234']
 output = subprocess.check_output(cmd, universal_newlines=True)
 
+
+print(output)
 # Parse the output into a list of dictionaries
 lines = output.strip().split('\n')
 keys = []
