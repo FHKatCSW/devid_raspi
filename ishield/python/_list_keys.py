@@ -7,16 +7,24 @@ output = subprocess.check_output(cmd, universal_newlines=True)
 
 
 print(output)
-# Parse the output into a list of dictionaries
-lines = output.strip().split('\n')
-keys = []
-for i in range(0, len(lines), 3):
-    label = lines[i].split(':')[1].strip()
-    id = lines[i+1].split(':')[1].strip()
-    keys.append({'label': label, 'id': id})
+# Define a regular expression pattern to extract each field from an object
+pattern = r"Object (\d+):\n\s+URL: (.+)\n\s+Type: (.+)\n\s+Label: (.+)\n\s+Flags: (.+)\n\s+ID: (.+)"
 
-# Convert the list of dictionaries into a JSON object
-json_output = json.dumps(keys)
+# Extract the information from each object and store it in a dictionary
+objects = []
+for match in re.finditer(pattern, output):
+    obj = {
+        "index": match.group(1),
+        "url": match.group(2),
+        "type": match.group(3),
+        "label": match.group(4),
+        "flags": match.group(5),
+        "id": match.group(6),
+    }
+    objects.append(obj)
+
+# Convert the list of dictionaries to a JSON object
+json_output = json.dumps(objects)
 
 # Print the JSON object
 print(json_output)
