@@ -8,6 +8,7 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --key-id=*) key_id="${1#*=}"; shift 1;;
         --output-file=*) output_file="${1#*=}"; shift 1;;
+        --hsm-pin=*) hsm_pin="${1#*=}"; shift 1;;
         --cn=*) cn="${1#*=}"; shift 1;;
         --o=*) o="${1#*=}"; shift 1;;
         --ou=*) ou="${1#*=}"; shift 1;;
@@ -26,5 +27,5 @@ if [ ! -z "$c" ]; then subj="$subj/C=$c"; fi
 if [ ! -z "$serial_number" ]; then subj="$subj/serialNumber=$serial_number"; fi
 
 # Generate CSR using openssl command
-openssl req -engine pkcs11 -keyform engine -subj "$subj" -key "$key_id" -new -sha256 -out $output_file --verbose
+openssl req -engine pkcs11 -keyform engine -subj "$subj" -key "$key_id" -passin pass:$hsm_pin -new -sha256 -out $output_file --verbose
 

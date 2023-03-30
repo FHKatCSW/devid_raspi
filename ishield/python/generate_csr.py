@@ -30,6 +30,7 @@ class GenerateCsr:
         command = [
             "./bash/generate_csr.sh",
             f'--output-file={self.output_file}',
+            f'--hsm-pin={self.pin}',
             f'--cn={cn}',
         ]
 

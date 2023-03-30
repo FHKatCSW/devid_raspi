@@ -6,7 +6,7 @@ import random
 
 if __name__ == "__main__":
     random_id = random.randint(1000, 9999)
-    csr_file = '/home/admin/certs//csr_{}.csr'.format(random_id)
+    csr_file = '/home/admin/certs/csr_{}.csr'.format(random_id)
     private_key_label = "ldev_pvt_key_{}".format(random_id)
 
     hsm_key = HsmKey(slot=0,
