@@ -1,6 +1,7 @@
 import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
+import OpenSSL.crypto
 import logger
 import base64
 
@@ -52,14 +53,8 @@ class CertRequest:
 
             certificate = response["certificate"]
 
-            # Insert a newline character after every 64 characters
-            formatted_certificate_text = '\n'.join(
-                [certificate[i:i + 64] for i in range(0, len(certificate), 64)])
-
-            with open(cert_file, "w") as certificate_file:
-                certificate_file.write("-----BEGIN CERTIFICATE-----\n")
-                certificate_file.write(formatted_certificate_text + "\n")
-                certificate_file.write("-----END CERTIFICATE-----\n")
+            self.save_cert_to_pem(certificate, cert_file)
+            self.get_sha_fingerprint(cert_file)
 
             self.logger.info("-Certificate received ✅")
             self.logger.info("--Serial number: {}".format(response["serial_number"]))
@@ -68,8 +63,31 @@ class CertRequest:
             self.logger.error("HTTP error occurred:", err)
         except requests.exceptions.RequestException as err:
             self.logger.error("An error occurred:", err)
-        except (json.JSONDecodeError, base64.binascii.Error, OSError, KeyError) as e:
+        except (json.JSONDecodeError, OSError, KeyError) as e:
             self.logger.error(f"Error requesting certificate: {str(e)}")
+
+    def save_cert_to_pem(self, certificate_string, cert_path):
+        # Insert a newline character after every 64 characters
+        formatted_certificate_text = '\n'.join(
+            [certificate_string[i:i + 64] for i in range(0, len(certificate_string), 64)])
+
+        with open(cert_path, "w") as certificate_file:
+            certificate_file.write("-----BEGIN CERTIFICATE-----\n")
+            certificate_file.write(formatted_certificate_text + "\n")
+            certificate_file.write("-----END CERTIFICATE-----\n")
+
+    def get_sha_fingerprint(self, cert_path):
+        # Load the certificate from the PEM file
+        with open(cert_path, "r") as cert_file:
+            cert_data = cert_file.read().encode("ascii")
+            cert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_data)
+
+        # Calculate the SHA-256 fingerprint
+        fingerprint = cert.digest("sha256").decode("ascii")
+        self.logger.info("Certificate fingerprint: {}".format(fingerprint))
+
+
+
 
 
 
