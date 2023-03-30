@@ -33,7 +33,8 @@ class P11ToolParser:
 
     def get_url_by_label(self, label):
         keys = self.keys_to_json()
-        for key in keys_str:
+        keys_trans = json.loads(keys)
+        for key in keys_trans:
             if key["label"] == label:
                 return key["url"]
         return None
