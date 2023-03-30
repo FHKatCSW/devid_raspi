@@ -51,13 +51,13 @@ class CertRequest:
             self.logger.info("--Certificate: {}".format(response[1]))
 
 
-            certificate_bytes = base64.b64decode(response[1])
+            certificate_bytes = base64.b64decode(response["certificate"])
 
             with open(cert_file, "wb") as certificate_file:
                 certificate_file.write(certificate_bytes)
 
             self.logger.info("-Certificate received ✅")
-            self.logger.info("--Serial number: {}".format(response[2]))
+            self.logger.info("--Serial number: {}".format(response["serial_number"]))
 
         except requests.exceptions.HTTPError as err:
             self.logger.error("HTTP error occurred:", err)
