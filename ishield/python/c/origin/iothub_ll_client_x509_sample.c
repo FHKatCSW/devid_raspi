@@ -57,8 +57,7 @@ static const char* connectionString = "HostName=<host_name>;DeviceId=<device_id>
 static const char* x509certificate =
 "<x509certificate>";
 
-static const char* x509privatekey =
-"<x509privatekey>";
+/* placeholder x509privatekey */
 
 #ifdef SAMPLE_OPENSSL_ENGINE
 static const char* opensslEngine = SAMPLE_OPENSSL_ENGINE;
