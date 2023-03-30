@@ -86,7 +86,10 @@ Object 1:
 	ID: 10:ec:bb:8f:7f:00:00:00:10:00:00:00:00:00:00:00
 
 
-
+"-----BEGIN CERTIFICATE-----""\n"
+"MIICpDCCAYwCCQCfIjBnPxs5TzANBgkqhkiG9w0BAQsFADAUMRIwEAYDVQQDDAls""\n"
+"dkyVdoGPCXc=""\n"
+"-----END CERTIFICATE-----";
 
 
 "Private ": "Key ": "Object; ": "RSA ": "label"my_priv_rsa ": "ID"68c962b61000000068c962b610000000 ": "Usage"decrypt, ": "sign, ": "unwrap ": "Access"none ": "Public ": "Key ": "Object; ": "RSA ": "2048 ": "bits ": "label"my_rsa_pub ": "ID"68c962b61000000068c962b610000000 ": "Usage"encrypt, ": "verify, ": "wrap ": "Access"none ": "Private ": "Key ": "Object; ": "RSA ": "label"test ": "ID"02 ": "Usage"decrypt, ": "sign ": "Access"none ": "Public ": "Key ": "Object; ": "RSA ": "2048 ": "bits ": "label"test ": "ID"02 ": "Usage"encrypt, ": "verify ": "Access"none ": "Profile ": "object ": "3031686432 ": "profile_id"CKP_PUBLIC_CERTIFICATES_TOKEN ": "(4) ":\n'
