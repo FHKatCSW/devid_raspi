@@ -1,16 +1,25 @@
 from generate_csr import GenerateCsr
 from request_cert import CertRequest
+from create_key import HsmKey
 import random
 
 
 if __name__ == "__main__":
     random_id = random.randint(1000, 9999)
     csr_file = '/home/admin/csr_{}.csr'.format(random_id)
+    private_key_label = "ldev_pvt_key_{}".format(random_id)
+
+    hsm_key = HsmKey(slot=0,
+                     pin="1234",
+                     public_key_label="ldev_pub_key_{}".format(random_id),
+                     private_key_label=private_key_label)
+    hsm_key.generate_rsa_key_pair()
+
     print("--- Generate CSR ---")
     csr_generate = GenerateCsr(
         slot_num=0,
         pin='1234',
-        key_id='9016cb947f0000001000000000000000',
+        key_label=private_key_label,
         output_file= csr_file
     )
     csr_generate.generate_csr(cn="test_cn_{}".format(random_id),

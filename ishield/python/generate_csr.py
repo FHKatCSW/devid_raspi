@@ -68,7 +68,6 @@ if __name__ == "__main__":
     random_cn = random.randint(1000000, 9999999)
     print("--- Generate CSR ---")
     csr_generate = GenerateCsr(
-        library_path='/usr/lib/opensc-pkcs11.so',
         slot_num=0,
         pin='1234',
         key_id='4',
