@@ -50,11 +50,16 @@ class CertRequest:
             self.logger.info("--Path: {}".format(cert_file))
             self.logger.info("--Certificate: {}".format(response["certificate"]))
 
+            certificate = response["certificate"]
 
-            certificate_bytes = base64.b64decode(response["certificate"])
+            # Insert a newline character after every 64 characters
+            formatted_certificate_text = '\n'.join(
+                [certificate[i:i + 64] for i in range(0, len(certificate), 64)])
 
-            with open(cert_file, "wb") as certificate_file:
-                certificate_file.write(certificate_bytes)
+            with open(cert_file, "w") as certificate_file:
+                certificate_file.write("-----BEGIN CERTIFICATE-----\n")
+                certificate_file.write(formatted_certificate_text + "\n")
+                certificate_file.write("-----END CERTIFICATE-----\n")
 
             self.logger.info("-Certificate received ✅")
             self.logger.info("--Serial number: {}".format(response["serial_number"]))
