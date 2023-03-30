@@ -6,8 +6,9 @@ class P11ToolParser:
     def __init__(self, pin):
         self.pin = pin
         self.output = None
+        self.keys = None
 
-    def list_keys(self):
+    def get_keys(self):
         cmd = ['p11tool', '--provider=/usr/lib/opensc-pkcs11.so', '--list-keys', '--login', '--set-pin={}'.format(self.pin)]
         self.output = subprocess.check_output(cmd, universal_newlines=True)
         return self.keys_to_json()
@@ -41,6 +42,7 @@ class P11ToolParser:
 
 def main():
     p11_keys = P11ToolParser(pin="1234")
+    p11_keys.get_keys()
     url = p11_keys.get_url_by_label("ldev_pvt_key_3443")
     print(url)
 
