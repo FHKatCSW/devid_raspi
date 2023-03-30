@@ -40,21 +40,30 @@ class CertRequest:
                 data=json_payload,
                 verify=False
             )
+            response.raise_for_status()  # raise an HTTPError if status code is >= 400
+            if "certificate" not in response.text:
+                raise Exception("Response does not contain a certificate")
+
             self.logger.info("-Save certificate")
             self.logger.info("--Path: {}".format(cert_file))
             self.logger.info("--Response: {}".format(response.text))
 
 
-            certificate_bytes = base64.b64decode(response.text["certificate"])
+            certificate_bytes = base64.b64decode(response.text[1])
 
             with open(cert_file, "wb") as certificate_file:
                 certificate_file.write(certificate_bytes)
 
             self.logger.info("-Certificate received ✅")
-            self.logger.info("--Serial number: {}".format(response.text["serial_number"]))
+            self.logger.info("--Serial number: {}".format(response.text[2]))
 
-        except (requests.exceptions.RequestException, json.JSONDecodeError, base64.binascii.Error, OSError, KeyError) as e:
+        except requests.exceptions.HTTPError as err:
+            self.logger.error("HTTP error occurred:", err)
+        except requests.exceptions.RequestException as err:
+            self.logger.error("An error occurred:", err)
+        except (json.JSONDecodeError, base64.binascii.Error, OSError, KeyError) as e:
             self.logger.error(f"Error requesting certificate: {str(e)}")
+
 
 
 
