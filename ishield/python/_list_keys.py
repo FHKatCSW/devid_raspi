@@ -25,7 +25,7 @@ for match in re.finditer(pattern, output):
     objects.append(obj)
 
 # Convert the list of dictionaries to a JSON object
-json_output = json.dumps(objects)
+json_output = json.dumps(objects, indent=4)
 
 # Print the JSON object
 print(json_output)
