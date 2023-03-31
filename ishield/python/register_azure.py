@@ -8,26 +8,24 @@ import time
 # https://github.com/Azure/azure-iot-sdk-python/blob/main/samples/async-hub-scenarios/provision_x509.py
 
 class AzureDpsClient:
-    def __init__(self, provisioning_host, id_scope, registration_id, cert_file, key_file):
+    def __init__(self, provisioning_host, id_scope, registration_id, cert_file, key_string):
         self.logger = logger.get_logger("AzureDpsClient")
 
         self.provisioning_host = provisioning_host
         self.id_scope = id_scope
         self.registration_id = registration_id
         self.cert_file = cert_file
-        self.key_file = key_file
+        self.key_string = key_string
         self.X509 = None
 
     def create_cert_object(self):
         # Load the device's certificate and private key
         with open(self.cert_file, "rb") as f:
             cert = f.read()
-        with open(self.key_file, "rb") as f:
-            key = f.read()
 
         # Create an X.509 certificate object
         self.x509 = X509(cert_file=cert,
-                         key_file=key,
+                         key_file=self.key_string,
                          pass_phrase=None)
 
     def register_device(self):
@@ -76,8 +74,13 @@ class AzureDpsClient:
 
 
 def main():
-    register = AzureDpsClient()
+    register = AzureDpsClient(provisioning_host="DeviceProvisioning.azure-devices.net",
+                              id_scope="0ne009BEB86",
+                              registration_id="Testdevice_01",
+                              cert_file="/home/admin/certs/my_cert_3443.pem",
+                              key_string="pkcs11:model=PKCS%2315;manufacturer=unknown;serial=0000;token=JavaCard%20isoApplet%20%28User%20PIN%29;id=%10%1F%15%A6%7F%00%00%00%10%00%00%00%00%00%00%00;object=ldev_pvt_key_3443;type=private;pinvalue=1234;")
 
+    register.register_device()
 
 if __name__ == "__main__":
     main()
