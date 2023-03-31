@@ -25,15 +25,8 @@ class AzureDpsClient:
         with open(self.cert_file, "rb") as f:
             cert = f.read()
 
-        # The path to the symbolic link you want to create
-        link_path = "/path/to/link"
-
-        # Create the symbolic link
-        os.symlink(self.key_string, link_path)
-
         # Create an X.509 certificate object
-        self.x509 = X509(cert_file=cert,
-                         key_file=self.key_string)
+        self.x509 = X509(cert_file=cert)
 
     def register_device(self):
 
