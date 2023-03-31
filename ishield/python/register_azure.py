@@ -18,6 +18,8 @@ class AzureDpsClient:
         self.key_string = key_string
         self.X509 = None
 
+        self.create_cert_object()
+
     def create_cert_object(self):
         # Load the device's certificate and private key
         with open(self.cert_file, "rb") as f:
@@ -25,8 +27,7 @@ class AzureDpsClient:
 
         # Create an X.509 certificate object
         self.x509 = X509(cert_file=cert,
-                         key_file=self.key_string,
-                         pass_phrase=None)
+                         key_file=self.key_string)
 
     def register_device(self):
 
@@ -46,7 +47,8 @@ class AzureDpsClient:
         # Return the registration result
         return {
             "status": registration_result.status,
-            "assigned_hub": registration_result.registration_state.assigned_hub
+            "assigned_hub": registration_result.registration_state.assigned_hub,
+            "device_id": registration_result.registration_state.device_id
         }
 
     def send_telemtry_data(self, registration_result):
