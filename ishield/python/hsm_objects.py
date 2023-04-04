@@ -6,6 +6,7 @@ class HsmObjects:
     def __init__(self, slot_num, pin):
         self.private_keys = {}
         self.public_keys = {}
+        self.certificate = {}
         self.slot_num = slot_num
         self.pin = pin
         objects = self.list_objects_on_hsm()
@@ -25,9 +26,10 @@ class HsmObjects:
         current_obj_id = None
         current_obj_usage = None
         current_obj_access = None
+        current_obj_subject = None
 
         for line in input_str.split('\n'):
-            match = re.match(r'^\s*(Private|Public) Key Object;\s*(RSA.*)$', line)
+            match = re.match(r"(Certificate|Public|Private)\s(Key|Object)", line)
             if match:
                 current_obj_type = match.group(1).lower()
                 current_obj_label = None
@@ -45,20 +47,34 @@ class HsmObjects:
                     current_obj_usage = value
                 elif key == 'Access':
                     current_obj_access = value
-                    if current_obj_label and current_obj_id and current_obj_usage and current_obj_access:
-                        obj_data = {
-                            'ID': current_obj_id,
-                            'Usage': current_obj_usage,
-                            'Access': current_obj_access,
-                        }
-                        if current_obj_type == 'private':
-                            self.private_keys[current_obj_label] = obj_data
-                        elif current_obj_type == 'public':
-                            self.public_keys[current_obj_label] = obj_data
-                        current_obj_label = None
-                        current_obj_id = None
-                        current_obj_usage = None
-                        current_obj_access = None
+                elif key == 'subject':
+                    current_obj_subject = value
+
+                if current_obj_label and current_obj_id and current_obj_usage and current_obj_access:
+
+                    obj_data = {}
+
+                    if current_obj_id:
+                        obj_data['ID'] = current_obj_id
+                    if current_obj_usage:
+                        obj_data['Usage'] = current_obj_usage
+                    if current_obj_access:
+                        obj_data['Access'] = current_obj_access
+                    if current_obj_subject:
+                        obj_data['Subject'] = current_obj_subject
+
+                    if current_obj_type == 'private':
+                        self.private_keys[current_obj_label] = obj_data
+                    elif current_obj_type == 'public':
+                        self.public_keys[current_obj_label] = obj_data
+                    elif current_obj_type == 'certificate':
+                        self.certificate[current_obj_label] = obj_data
+
+                    current_obj_label = None
+                    current_obj_id = None
+                    current_obj_usage = None
+                    current_obj_access = None
+                    current_obj_subject = None
 
     def to_dict(self):
         return {
