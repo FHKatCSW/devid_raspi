@@ -122,5 +122,12 @@ def main():
     print("--- Get key ID ---")
     print("ID: {}".format(hsm_objects.filter_id_by_label(key_label="my_rsa_pvt_86599")))
 
+def delete_idev():
+    hsm_objects = HsmObjects(
+        slot_num=0,
+        pin='1234'
+    )
+    hsm_objects.delete_idev_keys()
+
 if __name__ == "__main__":
-    main()
+    delete_idev()

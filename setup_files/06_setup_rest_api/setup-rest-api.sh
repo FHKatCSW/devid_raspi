@@ -32,6 +32,14 @@ PORT="5000"
 # Install the requirements
 pip install -r "$APP_WORKDIR/requirements.txt"
 
+# Set permissions
+chmod +x "/home/$username/devid_api/app/core/adapters/bash/delete_keys_on_hsm.sh"
+chmod +x "/home/$username/devid_api/app/core/adapters/bash/export_certificate.sh"
+chmod +x "/home/$username/devid_api/app/core/adapters/bash/generate_csr.sh"
+chmod +x "/home/$username/devid_api/app/core/adapters/bash/insert_certificate.sh"
+chmod +x "/home/$username/devid_api/app/core/adapters/bash/list_objects.sh"
+
+
 # Write the systemd service file
 echo "[Unit]
 Description=IEEE 802.1 AR REST API
