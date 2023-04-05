@@ -6,7 +6,7 @@ class HsmObjects:
     def __init__(self, slot_num, pin):
         self.private_keys = {}
         self.public_keys = {}
-        self.certificate = {}
+        self.certificates = {}
         self.slot_num = slot_num
         self.pin = pin
         objects = self.list_objects_on_hsm()
@@ -68,7 +68,7 @@ class HsmObjects:
                     elif current_obj_type == 'public':
                         self.public_keys[current_obj_label] = obj_data
                     elif current_obj_type == 'certificate':
-                        self.certificate[current_obj_label] = obj_data
+                        self.certificates[current_obj_label] = obj_data
 
                     current_obj_label = None
                     current_obj_id = None
@@ -80,6 +80,7 @@ class HsmObjects:
         return {
             'private_keys': self.private_keys,
             'public_keys': self.public_keys,
+            'certificates': self.certificates
         }
 
     def to_json(self):

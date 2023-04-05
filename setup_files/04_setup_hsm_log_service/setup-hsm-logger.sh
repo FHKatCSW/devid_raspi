@@ -17,6 +17,9 @@ Description=HSM Communication Logger
 
 [Service]
 ExecStart=/usr/local/bin/hsm-logger.sh
+Restart=on-failure
+StartLimitBurst=10
+StartLimitInterval=5min
 
 [Install]
 WantedBy=multi-user.target

@@ -39,7 +39,9 @@ Environment="QT_DEBUG_PLUGINS=1"
 Environment="DISPLAY=:0.0"
 Environment="XAUTHORITY=/home/"$username"/.Xauthority"
 ExecStart=/usr/bin/python $APP_PATH
-Restart=always
+Restart=on-failure
+StartLimitBurst=100
+StartLimitInterval=5min
 
 [Install]
 WantedBy=graphical.target" | sudo tee $SERVICE_FILE

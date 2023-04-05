@@ -33,11 +33,11 @@ PORT="5000"
 pip install -r "$APP_WORKDIR/requirements.txt"
 
 # Set permissions
-chmod +x "/home/$username/devid_api/app/core/adapters/bash/delete_keys_on_hsm.sh"
-chmod +x "/home/$username/devid_api/app/core/adapters/bash/export_certificate.sh"
-chmod +x "/home/$username/devid_api/app/core/adapters/bash/generate_csr.sh"
-chmod +x "/home/$username/devid_api/app/core/adapters/bash/insert_certificate.sh"
-chmod +x "/home/$username/devid_api/app/core/adapters/bash/list_objects.sh"
+chmod +x "/home/$username/devid_api/app/apis/adapters/bash/delete_keys_on_hsm.sh"
+chmod +x "/home/$username/devid_api/app/apis/adapters/bash/export_certificate.sh"
+chmod +x "/home/$username/devid_api/app/apis/adapters/bash/generate_csr.sh"
+chmod +x "/home/$username/devid_api/app/apis/adapters/bash/insert_certificate.sh"
+chmod +x "/home/$username/devid_api/app/apis/adapters/bash/list_objects.sh"
 
 
 # Write the systemd service file
@@ -50,7 +50,9 @@ User=$username
 Environment="FLASK_APP=run.py"
 WorkingDirectory=$APP_WORKDIR
 ExecStart=flask run --host=$IP_ADDRESS --port=$PORT
-Restart=always
+Restart=on-failure
+StartLimitBurst=100
+StartLimitInterval=5min
 
 [Install]
 WantedBy=multi-user.target" | sudo tee $SERVICE_FILE

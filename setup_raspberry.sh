@@ -1,14 +1,16 @@
 #!/bin/bash
 
 function header {
-    echo "⭐ ⭐ ⭐"
+    echo "****"
     echo "$1"
+    echo "****"
     echo
 }
 
 function warn {
-    echo "⚠️ ⚠️ ⚠ "
+    echo "!!!!"
     echo "$1"
+    echo "!!!!"
     echo
 }
 
@@ -35,8 +37,8 @@ bash /home/"$username"/devid_raspi/setup_files/02_setup_ishield/setup-ishield.sh
 header Setup py-hsm
 bash /home/"$username"/devid_raspi/setup_files/03_setup_pyhsm/setup-pyhsm.sh $username
 
-header Setup HSM Log service
-bash /home/"$username"/devid_raspi/setup_files/04_setup_hsm_log_service/setup-hsm-logger.sh
+#header Setup HSM Log service
+#bash /home/"$username"/devid_raspi/setup_files/04_setup_hsm_log_service/setup-hsm-logger.sh
 
 header Setup Certificate Storage
 bash /home/"$username"/devid_raspi/setup_files/05_setup_certificate_storage/setup-certificate-storgae.sh
