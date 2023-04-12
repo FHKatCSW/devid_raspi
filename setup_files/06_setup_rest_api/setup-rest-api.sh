@@ -39,6 +39,18 @@ chmod +x "/home/$username/devid_api/app/apis/adapters/bash/generate_csr.sh"
 chmod +x "/home/$username/devid_api/app/apis/adapters/bash/insert_certificate.sh"
 chmod +x "/home/$username/devid_api/app/apis/adapters/bash/list_objects.sh"
 
+mkdir "/home/$username/certs"
+
+export PYTHONPATH=$PYTHONPATH:/home/admin/devid_api/
+
+# Add the python path to .bashrc
+PYTHON_PATH="/home/admin/devid_api/"
+
+# Append the variable and its value to the .bashrc file
+echo "export PYTHONPATH=\"$PYTHON_PATH\"" >> ~/.bashrc
+
+# Load the updated .bashrc file to make the variable available in the current session
+source ~/.bashrc
 
 # Write the systemd service file
 echo "[Unit]
