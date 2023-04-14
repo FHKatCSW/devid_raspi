@@ -49,8 +49,8 @@ bash /home/"$username"/devid_raspi/setup_files/06_setup_rest_api/setup-rest-api.
 header Setup GUI
 bash /home/"$username"/devid_raspi/setup_files/07_setup_gui/setup-gui.sh $username
 
-header Setup azure
-bash /home/"$username"/devid_raspi/setup_files/08_setup_azure/setup-azure.sh $username
+#header Setup azure
+#bash /home/"$username"/devid_raspi/setup_files/08_setup_azure/setup-azure.sh $username
 
 header Setup p11tool
 bash /home/"$username"/devid_raspi/setup_files/09_setup_p11tool/setup-p11tool.sh
